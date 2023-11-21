@@ -23,7 +23,7 @@ public class ReviewGetController {
         return reviewListAll;
     }
 
-    @GetMapping("/reviews/({reviewId}") // 특정 리뷰 상세조회
+    @GetMapping("/reviews/{reviewId}") // 특정 리뷰 상세조회
     public ReviewResponseDto getReview(@PathVariable Long reviewId){
         ReviewResponseDto reviewResponseDto = reviewService.getReview(reviewId);
         return reviewResponseDto;

@@ -38,12 +38,13 @@ public class ReviewService {
     }
 
 
-    public Review getReviewById(Long id){
+    private Review getReviewById(Long id){
 
         return reviewRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 리뷰글을 찾을 수 없습니다."));
 
     }
+
 
 
 }
