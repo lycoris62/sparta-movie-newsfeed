@@ -3,7 +3,7 @@ package sparta.ifour.movietalk.domain.reviews.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import sparta.ifour.movietalk.domain.reviews.entity.ReviewEntity;
+import sparta.ifour.movietalk.domain.reviews.entity.Review;
 
 import java.time.LocalDateTime;
 
@@ -13,8 +13,6 @@ import java.time.LocalDateTime;
 public class ReviewResponseDto {
     private Long id;
 
-    //private User user;
-
     private String title;
 
     private String content;
@@ -23,9 +21,8 @@ public class ReviewResponseDto {
 
     private String movieName;
 
-    //private LocalDateTime createdAt;
 
-    public ReviewResponseDto(ReviewEntity review){
+    public ReviewResponseDto(Review review){
         this.id = review.getId();
         this.title = review.getTitle();
         this.content = review.getContent();
