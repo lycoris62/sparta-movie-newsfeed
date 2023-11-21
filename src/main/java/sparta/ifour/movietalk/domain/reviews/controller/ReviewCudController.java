@@ -1,7 +1,6 @@
 package sparta.ifour.movietalk.domain.reviews.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sparta.ifour.movietalk.domain.reviews.dto.ReviewRequestDto;
 import sparta.ifour.movietalk.domain.reviews.dto.ReviewResponseDto;

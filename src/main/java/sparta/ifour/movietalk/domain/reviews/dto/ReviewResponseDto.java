@@ -21,6 +21,8 @@ public class ReviewResponseDto {
 
     private String movieName;
 
+    private LocalDateTime createdAt;
+
 
     public ReviewResponseDto(Review review){
         this.id = review.getId();
@@ -28,6 +30,7 @@ public class ReviewResponseDto {
         this.content = review.getContent();
         this.ratingScore = review.getRatingScore();
         this.movieName = review.getMovieName();
+        this.createdAt = review.getCreatedAt();
     }
 
 
