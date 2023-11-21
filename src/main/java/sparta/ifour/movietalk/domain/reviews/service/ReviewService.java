@@ -55,6 +55,4 @@ public class ReviewService {
                 || review.getMovieName().contains(query);
     }
 
-
-
 }
