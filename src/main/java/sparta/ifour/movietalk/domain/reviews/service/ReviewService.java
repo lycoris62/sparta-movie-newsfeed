@@ -36,17 +36,9 @@ public class ReviewService {
 
     public List<ReviewResponseDto> getReviewsBySearch(String queryname){
 
-        List<Review> reviewListAll = reviewRepository.findAll();
-        List<Review> reviewListBySearch = new ArrayList<>();
-
-        for(Review rev : reviewListAll){
-            if(rev.getContent().contains(queryname) || rev.getTitle().contains(queryname) || rev.getMovieName().contains(queryname))
-            {
-                reviewListBySearch.add(rev);
-            }
-        }
-
-        return reviewListBySearch.stream()
+        return reviewRepository.findAll()
+                .stream()
+                .filter(review -> doesReviewContain(queryname, review))
                 .map(ReviewResponseDto::new)
                 .toList();
 
@@ -55,6 +47,12 @@ public class ReviewService {
     private Review getReviewById(Long id){
         return reviewRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 리뷰글을 찾을 수 없습니다."));
+    }
+
+    private boolean doesReviewContain(String query, Review review) {
+        return review.getContent().contains(query)
+                || review.getTitle().contains(query)
+                || review.getMovieName().contains(query);
     }
 
 
