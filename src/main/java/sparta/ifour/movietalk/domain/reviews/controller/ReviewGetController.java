@@ -1,5 +1,6 @@
 package sparta.ifour.movietalk.domain.reviews.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +9,7 @@ import sparta.ifour.movietalk.domain.reviews.service.ReviewService;
 
 @RestController
 @RequestMapping("/api")
+@RequiredArgsConstructor
 public class ReviewGetController {
 
     private final ReviewService reviewService;
