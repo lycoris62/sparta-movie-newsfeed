@@ -20,7 +20,9 @@ public class ReviewGetController {
     @GetMapping("/reviews") //리뷰 전체 목록 조회
     public List<ReviewResponseDto> getAllReviews(){
 
-        return List.of();
+        List<ReviewResponseDto> reviewAllList = reviewService.getReviewAll();
+
+        return reviewAllList;
     }
 
     @GetMapping("/reviews/({reviewId}") // 특정 리뷰 상세조회
