@@ -23,15 +23,15 @@ public class ReviewService {
 
     }
 
-    public List<ReviewResponseDto> getReviewAll() {
+    public List<ReviewResponseDto> getReviewsAll() {
 
-        List<Review> reviewAllList = reviewRepository.findAll();
+        List<Review> reviewListAll = reviewRepository.findAll();
 
-        if(reviewAllList.isEmpty()){
+        if(reviewListAll.isEmpty()){
             return Collections.emptyList();
         }
 
-        return reviewAllList.stream()
+        return reviewListAll.stream()
                 .map(ReviewResponseDto::new)
                 .toList();
 

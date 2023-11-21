@@ -19,22 +19,20 @@ public class ReviewGetController {
 
     @GetMapping("/reviews") //리뷰 전체 목록 조회
     public List<ReviewResponseDto> getAllReviews(){
-
-        List<ReviewResponseDto> reviewAllList = reviewService.getReviewAll();
-
-        return reviewAllList;
+        List<ReviewResponseDto> reviewListAll = reviewService.getReviewsAll();
+        return reviewListAll;
     }
 
     @GetMapping("/reviews/({reviewId}") // 특정 리뷰 상세조회
     public ReviewResponseDto getReview(@PathVariable Long reviewId){
-
         ReviewResponseDto reviewResponseDto = reviewService.getReview(reviewId);
-        return null;
+        return reviewResponseDto;
     }
 
     @GetMapping("/reviews/query/{queryName}") //리뷰 검색 목록 조회
     public List<ReviewResponseDto> getReviewsBySearch(@PathVariable String queryName){
-        return List.of();
+
+        return null;
     }
 
     @GetMapping("reviews/hashtag/{hashtagName}") // 특정 해시태그가 포함된 리뷰 조회
