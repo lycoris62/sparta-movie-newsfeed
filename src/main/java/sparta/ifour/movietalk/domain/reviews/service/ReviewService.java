@@ -6,6 +6,7 @@ import sparta.ifour.movietalk.domain.reviews.dto.ReviewResponseDto;
 import sparta.ifour.movietalk.domain.reviews.entity.Review;
 import sparta.ifour.movietalk.domain.reviews.repository.ReviewRepository;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -27,11 +28,25 @@ public class ReviewService {
 
         List<Review> reviewListAll = reviewRepository.findAll();
 
-        if(reviewListAll.isEmpty()){
-            return Collections.emptyList();
+        return reviewListAll.stream()
+                .map(ReviewResponseDto::new)
+                .toList();
+
+    }
+
+    public List<ReviewResponseDto> getReviewsBySearch(String queryname){
+
+        List<Review> reviewListAll = reviewRepository.findAll();
+        List<Review> reviewListBySearch = new ArrayList<>();
+
+        for(Review rev : reviewListAll){
+            if(rev.getContent().contains(queryname) || rev.getTitle().contains(queryname) || rev.getMovieName().contains(queryname))
+            {
+                reviewListBySearch.add(rev);
+            }
         }
 
-        return reviewListAll.stream()
+        return reviewListBySearch.stream()
                 .map(ReviewResponseDto::new)
                 .toList();
 
