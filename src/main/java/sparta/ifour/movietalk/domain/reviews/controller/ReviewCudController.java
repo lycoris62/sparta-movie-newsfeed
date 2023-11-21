@@ -10,23 +10,23 @@ import sparta.ifour.movietalk.domain.reviews.service.ReviewService;
  * Review Create, Update, Delete 하는 기능을 가진 Controller
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/reviews")
 @RequiredArgsConstructor
 public class ReviewCudController {
     private final ReviewService reviewService;
 
 
-    @PostMapping("/reviews")
+    @PostMapping
     public ReviewResponseDto createReview(@RequestBody ReviewRequestDto requestDto) {
         return null;
     }
 
-    @PatchMapping("/reviews/{reviewId}")
+    @PatchMapping("/{reviewId}")
     public ReviewResponseDto updateReview(@PathVariable String reviewId) {
         return null;
     }
 
-    @DeleteMapping("reviews/{reviewId}")
+    @DeleteMapping("/{reviewId}")
     public ReviewResponseDto deleteReview(@PathVariable String reviewId) {
         return null;
     }
