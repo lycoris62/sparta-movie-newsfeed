@@ -1,7 +1,7 @@
 package sparta.ifour.movietalk.domain.comment.dto.request;
 
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class CommentCreateRequestDto {
 
-    @Max(100)
+    @Size(max = 100)
     @NotBlank
     private String content;
 
