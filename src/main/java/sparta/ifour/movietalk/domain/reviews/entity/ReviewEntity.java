@@ -2,19 +2,16 @@ package sparta.ifour.movietalk.domain.reviews.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
 import java.util.ArrayList;
 
 
-@Data
-@Builder
+@Getter
 @Entity
-@Table(name = "post")
-@NoArgsConstructor
+@Table(name = "review")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 
 public class ReviewEntity{
@@ -23,22 +20,18 @@ public class ReviewEntity{
     private Long Id;
 
     @Column(nullable = false)
+    @Length(max = 50)
     private String title;
 
     @Column(nullable = false)
+    @Length(max = 1000)
     private String content;
 
     @Column(nullable = false)
     private Double ratingScore;
 
     @Column(nullable = false)
+    @Length(max = 100)
     private String movieName;
-
-
-//    @ManyToOne // (fetch = FetchType.LAZY)
-//    @JoinColumn(name = "userId")
-//    @JsonIgnore
-//    private User user;
-
 
 }
