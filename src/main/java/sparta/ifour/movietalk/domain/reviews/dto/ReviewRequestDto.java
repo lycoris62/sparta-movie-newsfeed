@@ -8,10 +8,12 @@ import lombok.Getter;
 
 @Getter
 public class ReviewRequestDto {
-    @Size(max = 50)
+    @Size(min = 1, max = 50)
+    @NotBlank
     private String title;
 
     @Size(max = 1000)
+    @NotBlank
     private String content;
 
     @Max(10)
@@ -20,5 +22,6 @@ public class ReviewRequestDto {
     private Float ratingScore;
 
     @Size(max = 100)
+    @NotBlank
     private String movieName;
 }
