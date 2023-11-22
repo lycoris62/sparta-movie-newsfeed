@@ -34,6 +34,11 @@ public class CommentService {
         comment.update(requestDto.getContent());
     }
 
+    public void deleteComment(Long commentId, User user) {
+        Comment comment = getUserComment(commentId, user);
+        commentRepository.delete(comment);
+    }
+
     private Comment getUserComment(Long commentId, User user) {
         Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 댓글입니다."));
 
@@ -42,5 +47,4 @@ public class CommentService {
         }
         return comment;
     }
-
 }
