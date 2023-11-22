@@ -18,8 +18,10 @@ public class ReviewCommandController {
     private final ReviewService reviewService;
 
     @PostMapping
-    public ReviewPreviewResponseDto createReview(@RequestBody ReviewRequestDto requestDto) { // 리뷰 생성
-        return reviewService.createReview(requestDto);
+    public ResponseEntity<ReviewPreviewResponseDto> createReview(@RequestBody ReviewRequestDto requestDto) { // 리뷰 생성
+        ReviewPreviewResponseDto previewResponseDto = reviewService.createReview(requestDto);
+
+        return ResponseEntity.ok(previewResponseDto);
     }
 
     @PatchMapping("/{reviewId}")
