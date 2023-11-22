@@ -2,13 +2,11 @@ package sparta.ifour.movietalk.domain.reviews.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import sparta.ifour.movietalk.domain.reviews.dto.ReviewRequestDto;
-import sparta.ifour.movietalk.domain.reviews.dto.ReviewResponseDto;
+import sparta.ifour.movietalk.domain.reviews.dto.request.ReviewRequestDto;
+import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewResponseDto;
 import sparta.ifour.movietalk.domain.reviews.entity.Review;
 import sparta.ifour.movietalk.domain.reviews.repository.ReviewRepository;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @RequiredArgsConstructor
