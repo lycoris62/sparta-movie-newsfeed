@@ -4,13 +4,14 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import sparta.ifour.movietalk.domain.model.BaseEntity;
 import sparta.ifour.movietalk.domain.user.entity.User;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "likes")
-public class Like {
+public class Like extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
