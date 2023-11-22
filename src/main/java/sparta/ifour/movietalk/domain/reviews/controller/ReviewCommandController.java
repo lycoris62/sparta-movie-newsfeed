@@ -2,8 +2,8 @@ package sparta.ifour.movietalk.domain.reviews.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import sparta.ifour.movietalk.domain.reviews.dto.ReviewRequestDto;
-import sparta.ifour.movietalk.domain.reviews.dto.ReviewResponseDto;
+import sparta.ifour.movietalk.domain.reviews.dto.request.ReviewRequestDto;
+import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewResponseDto;
 import sparta.ifour.movietalk.domain.reviews.service.ReviewService;
 
 /**
@@ -12,17 +12,17 @@ import sparta.ifour.movietalk.domain.reviews.service.ReviewService;
 @RestController
 @RequestMapping("/api/reviews")
 @RequiredArgsConstructor
-public class ReviewCudController {
+public class ReviewCommandController {
     private final ReviewService reviewService;
 
 
     @PostMapping
-    public ReviewResponseDto createReview(@RequestBody ReviewRequestDto requestDto) {
-        return null;
+    public ReviewResponseDto createReview(@RequestBody ReviewRequestDto requestDto) { // 리뷰 생성
+        return reviewService.createReview(requestDto);
     }
 
     @PatchMapping("/{reviewId}")
-    public ReviewResponseDto updateReview(@PathVariable String reviewId) {
+    public ReviewResponseDto updateReview(@RequestBody ReviewRequestDto requestDto, @PathVariable Long reviewId) { // 리뷰 수정
         return null;
     }
 

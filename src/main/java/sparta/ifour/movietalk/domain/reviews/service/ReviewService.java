@@ -2,6 +2,8 @@ package sparta.ifour.movietalk.domain.reviews.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import sparta.ifour.movietalk.domain.reviews.dto.request.ReviewRequestDto;
+import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewResponseDto;
 import sparta.ifour.movietalk.domain.reviews.entity.Review;
 import sparta.ifour.movietalk.domain.reviews.repository.ReviewRepository;
 
@@ -13,30 +15,43 @@ public class ReviewService {
 
     private final ReviewRepository reviewRepository;
 
-    public ReviewDetailResponseDto getReview(Long reviewId) {
+    public ReviewResponseDto createReview(ReviewRequestDto requestDto) {
+        Review review = Review.builder()
+                .title(requestDto.getTitle())
+                .content(requestDto.getContent())
+                .ratingScore(requestDto.getRatingScore())
+                .movieName(requestDto.getMovieName())
+                .build();
+
+        reviewRepository.save(review);
+
+        return new ReviewResponseDto(review);
+    }
+
+    public ReviewResponseDto getReview(Long reviewId) {
 
         Review review = getReviewById(reviewId);
 
-        return new ReviewDetailResponseDto(review);
+        return new ReviewResponseDto(review);
 
     }
 
-    public List<ReviewPreviewResponseDto> getReviewsAll() {
+    public List<ReviewResponseDto> getReviewsAll() {
 
         List<Review> reviewListAll = reviewRepository.findAll();
 
         return reviewListAll.stream()
-                .map(ReviewPreviewResponseDto::new)
+                .map(ReviewResponseDto::new)
                 .toList();
 
     }
 
-    public List<ReviewPreviewResponseDto> getReviewsBySearch(String queryname){
+    public List<ReviewResponseDto> getReviewsBySearch(String queryname){
 
         return reviewRepository.findAll()
                 .stream()
                 .filter(review -> doesReviewContain(queryname, review))
-                .map(ReviewPreviewResponseDto::new)
+                .map(ReviewResponseDto::new)
                 .toList();
 
     }

@@ -1,32 +1,24 @@
-package sparta.ifour.movietalk.domain.reviews.dto;
+package sparta.ifour.movietalk.domain.reviews.dto.response;
 
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import sparta.ifour.movietalk.domain.reviews.entity.Review;
 
 import java.time.LocalDateTime;
 
+/**
+ * 목록 조회 관련 ResponseDto
+ */
+
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
-public class ReviewResponseDto {
+public class ReviewPreviewResponseDto {
     private Long id;
-
     private String title;
-
     private String content;
-
-    private Double ratingScore;
-
+    private Float ratingScore;
     private String movieName;
-
     private LocalDateTime createdAt;
 
-
-    public ReviewResponseDto(Review review){
+    public ReviewPreviewResponseDto(Review review){
         this.id = review.getId();
         this.title = review.getTitle();
         this.content = review.getContent();
@@ -34,8 +26,4 @@ public class ReviewResponseDto {
         this.movieName = review.getMovieName();
         this.createdAt = review.getCreatedAt();
     }
-
-
-
-
 }
