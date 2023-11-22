@@ -1,14 +1,15 @@
-package sparta.ifour.movietalk.domain.reviews.controller;
+package sparta.ifour.movietalk.domain.reviews.dto;
 
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sparta.ifour.movietalk.domain.reviews.entity.Review;
 
 import java.time.LocalDateTime;
 
-@Data
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReviewResponseDto {
