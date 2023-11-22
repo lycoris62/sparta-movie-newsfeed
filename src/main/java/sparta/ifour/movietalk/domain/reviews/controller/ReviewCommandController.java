@@ -27,7 +27,7 @@ public class ReviewCommandController {
     }
 
     @DeleteMapping("/{reviewId}")
-    public ReviewResponseDto deleteReview(@PathVariable String reviewId) {
-        return null;
+    public void deleteReview(@PathVariable Long reviewId) {
+        reviewService.deleteReview(reviewId);
     }
 }

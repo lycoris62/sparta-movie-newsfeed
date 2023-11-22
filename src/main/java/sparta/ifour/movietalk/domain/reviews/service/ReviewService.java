@@ -35,6 +35,12 @@ public class ReviewService {
         review.update(requestDto.getTitle(), requestDto.getContent(), requestDto.getRatingScore());
     }
 
+    public void deleteReview(Long reviewId) { // 리뷰 삭제
+        Review review = getReviewById(reviewId);
+
+        reviewRepository.delete(review);
+    }
+
     public ReviewResponseDto getReview(Long reviewId) {
 
         Review review = getReviewById(reviewId);
