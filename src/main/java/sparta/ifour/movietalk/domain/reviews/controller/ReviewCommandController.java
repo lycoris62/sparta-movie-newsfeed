@@ -1,6 +1,7 @@
 package sparta.ifour.movietalk.domain.reviews.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sparta.ifour.movietalk.domain.reviews.dto.request.ReviewRequestDto;
 import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewPreviewResponseDto;
@@ -22,8 +23,10 @@ public class ReviewCommandController {
     }
 
     @PatchMapping("/{reviewId}")
-    public void updateReview(@RequestBody ReviewRequestDto requestDto, @PathVariable Long reviewId) { // 리뷰 수정
+    public ResponseEntity<?> updateReview(@RequestBody ReviewRequestDto requestDto, @PathVariable Long reviewId) { // 리뷰 수정
         reviewService.updateReview(requestDto, reviewId);
+
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{reviewId}")
