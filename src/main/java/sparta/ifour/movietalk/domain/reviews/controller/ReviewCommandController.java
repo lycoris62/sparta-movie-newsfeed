@@ -1,8 +1,10 @@
 package sparta.ifour.movietalk.domain.reviews.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sparta.ifour.movietalk.domain.reviews.dto.request.ReviewRequestDto;
+import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewPreviewResponseDto;
 import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewResponseDto;
 import sparta.ifour.movietalk.domain.reviews.service.ReviewService;
 
@@ -15,15 +17,18 @@ import sparta.ifour.movietalk.domain.reviews.service.ReviewService;
 public class ReviewCommandController {
     private final ReviewService reviewService;
 
-
     @PostMapping
-    public ReviewResponseDto createReview(@RequestBody ReviewRequestDto requestDto) { // 리뷰 생성
-        return reviewService.createReview(requestDto);
+    public ResponseEntity<ReviewPreviewResponseDto> createReview(@RequestBody ReviewRequestDto requestDto) { // 리뷰 생성
+        ReviewPreviewResponseDto previewResponseDto = reviewService.createReview(requestDto);
+
+        return ResponseEntity.ok(previewResponseDto);
     }
 
     @PatchMapping("/{reviewId}")
-    public ReviewResponseDto updateReview(@RequestBody ReviewRequestDto requestDto, @PathVariable Long reviewId) { // 리뷰 수정
-        return null;
+    public ResponseEntity<?> updateReview(@RequestBody ReviewRequestDto requestDto, @PathVariable Long reviewId) { // 리뷰 수정
+        reviewService.updateReview(requestDto, reviewId);
+
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{reviewId}")

@@ -1,6 +1,10 @@
 package sparta.ifour.movietalk.domain.reviews.entity;
+
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import sparta.ifour.movietalk.domain.model.BaseEntity;
 
@@ -42,6 +46,12 @@ public class Review extends BaseEntity {
         this.content = content;
         this.ratingScore = ratingScore;
         this.movieName = movieName;
+    }
+
+    public void update(String title, String content, Float ratingScore) {
+        this.title = title;
+        this.content = content;
+        this.ratingScore = ratingScore;
     }
 
     public void addReviewHashtag(ReviewHashtag reviewHashtag) {
