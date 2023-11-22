@@ -22,4 +22,9 @@ public class Like {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "review_id", nullable = false)
     private Review review;
+
+    public Like(User user, Review review) {
+        this.user = user;
+        this.review = review;
+    }
 }
