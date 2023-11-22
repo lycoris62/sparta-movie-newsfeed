@@ -24,10 +24,14 @@ public class Review extends BaseEntity {
     private String content;
 
     @Column(nullable = false)
-    private Double ratingScore;
+    private Float ratingScore;
 
     @Column(nullable = false)
     @Length(max = 100)
     private String movieName;
 
+    @Builder
+    public Review(String title, String content, Float ratingScore, String movieName) {
+
+    }
 }

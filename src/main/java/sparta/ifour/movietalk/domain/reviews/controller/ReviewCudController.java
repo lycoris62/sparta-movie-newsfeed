@@ -18,7 +18,7 @@ public class ReviewCudController {
 
     @PostMapping
     public ReviewResponseDto createReview(@RequestBody ReviewRequestDto requestDto) {
-        return null;
+        return reviewService.createReview(requestDto);
     }
 
     @PatchMapping("/{reviewId}")

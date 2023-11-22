@@ -2,6 +2,7 @@ package sparta.ifour.movietalk.domain.reviews.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import sparta.ifour.movietalk.domain.reviews.dto.ReviewRequestDto;
 import sparta.ifour.movietalk.domain.reviews.dto.ReviewResponseDto;
 import sparta.ifour.movietalk.domain.reviews.entity.Review;
 import sparta.ifour.movietalk.domain.reviews.repository.ReviewRepository;
@@ -14,6 +15,19 @@ import java.util.List;
 public class ReviewService {
 
     private final ReviewRepository reviewRepository;
+
+    public ReviewResponseDto createReview(ReviewRequestDto requestDto) {
+        Review review = Review.builder()
+                .title(requestDto.getTitle())
+                .content(requestDto.getContent())
+                .ratingScore(requestDto.getRatingScore())
+                .movieName(requestDto.getMovieName())
+                .build();
+
+        reviewRepository.save(review);
+
+        return new ReviewResponseDto(review);
+    }
 
     public ReviewResponseDto getReview(Long reviewId) {
 

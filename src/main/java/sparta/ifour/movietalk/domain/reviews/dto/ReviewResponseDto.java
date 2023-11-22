@@ -17,7 +17,7 @@ public class ReviewResponseDto {
 
     private String content;
 
-    private Double ratingScore;
+    private Float ratingScore;
 
     private String movieName;
 
@@ -32,7 +32,6 @@ public class ReviewResponseDto {
         this.movieName = review.getMovieName();
         this.createdAt = review.getCreatedAt();
     }
-
 
 
 
