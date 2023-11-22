@@ -9,7 +9,6 @@ import lombok.Setter;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "review_hashtag")
 
@@ -29,6 +28,14 @@ public class ReviewHashtag {
 
     public ReviewHashtag(Review review, Hashtag hashtag) {
         this.review = review;
+        this.hashtag = hashtag;
+    }
+
+    public void setReview(Review review) {
+        this.review = review;
+    }
+
+    public void setHashtag(Hashtag hashtag) {
         this.hashtag = hashtag;
     }
 }
