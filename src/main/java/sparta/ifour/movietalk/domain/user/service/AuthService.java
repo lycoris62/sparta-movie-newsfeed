@@ -34,7 +34,7 @@ public class AuthService {
 	}
 
 	private void validateDuplicateId(UserSignupRequestDto requestDto) {
-		if (userRepository.existsByLoginIdAndNickname(requestDto.getLoginId(), requestDto.getNickname())) {
+		if (userRepository.existsByLoginIdOrNickname(requestDto.getLoginId(), requestDto.getNickname())) {
 			throw new IllegalArgumentException("이미 있는 아이디");
 		}
 	}
