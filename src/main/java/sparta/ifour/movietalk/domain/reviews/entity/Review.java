@@ -3,6 +3,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 import sparta.ifour.movietalk.domain.model.BaseEntity;
+import sparta.ifour.movietalk.domain.reviews.dto.request.ReviewRequestDto;
+import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewPreviewResponseDto;
 
 
 @Getter
@@ -36,5 +38,11 @@ public class Review extends BaseEntity {
         this.content = content;
         this.ratingScore = ratingScore;
         this.movieName = movieName;
+    }
+
+    public void update(String title, String content, Float ratingScore) {
+        this.title = title;
+        this.content = content;
+        this.ratingScore = ratingScore;
     }
 }
