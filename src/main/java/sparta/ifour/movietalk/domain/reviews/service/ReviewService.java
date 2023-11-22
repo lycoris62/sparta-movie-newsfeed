@@ -2,6 +2,7 @@ package sparta.ifour.movietalk.domain.reviews.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sparta.ifour.movietalk.domain.reviews.dto.request.ReviewRequestDto;
 import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewPreviewResponseDto;
 import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewResponseDto;
@@ -16,6 +17,7 @@ public class ReviewService {
 
     private final ReviewRepository reviewRepository;
 
+    @Transactional
     public ReviewPreviewResponseDto createReview(ReviewRequestDto requestDto) { // 리뷰 생성
         Review review = Review.builder()
                 .title(requestDto.getTitle())
@@ -29,12 +31,14 @@ public class ReviewService {
         return new ReviewPreviewResponseDto(review);
     }
 
+    @Transactional
     public void updateReview(ReviewRequestDto requestDto, Long reviewId) { // 리뷰 수정
         Review review = getReviewById(reviewId);
 
         review.update(requestDto.getTitle(), requestDto.getContent(), requestDto.getRatingScore());
     }
 
+    @Transactional
     public void deleteReview(Long reviewId) { // 리뷰 삭제
         Review review = getReviewById(reviewId);
 
