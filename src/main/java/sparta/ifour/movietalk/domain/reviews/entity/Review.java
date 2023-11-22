@@ -4,6 +4,9 @@ import lombok.*;
 import org.hibernate.validator.constraints.Length;
 import sparta.ifour.movietalk.domain.model.BaseEntity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Getter
 @Entity
@@ -29,6 +32,9 @@ public class Review extends BaseEntity {
     @Column(nullable = false)
     @Length(max = 100)
     private String movieName;
+
+    @OneToMany(mappedBy = "review")
+    private List<ReviewHashtag> reviewHashtagList = new ArrayList<>();
 
     @Builder
     public Review(String title, String content, Float ratingScore, String movieName) {
