@@ -7,6 +7,7 @@ import sparta.ifour.movietalk.domain.reviews.dto.ReviewResponseDto;
 import sparta.ifour.movietalk.domain.reviews.entity.Review;
 import sparta.ifour.movietalk.domain.reviews.repository.ReviewRepository;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -41,11 +42,17 @@ public class ReviewService {
 
         List<Review> reviewListAll = reviewRepository.findAll();
 
-        if(reviewListAll.isEmpty()){
-            return Collections.emptyList();
-        }
-
         return reviewListAll.stream()
+                .map(ReviewResponseDto::new)
+                .toList();
+
+    }
+
+    public List<ReviewResponseDto> getReviewsBySearch(String queryname){
+
+        return reviewRepository.findAll()
+                .stream()
+                .filter(review -> doesReviewContain(queryname, review))
                 .map(ReviewResponseDto::new)
                 .toList();
 
@@ -55,4 +62,11 @@ public class ReviewService {
         return reviewRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 리뷰글을 찾을 수 없습니다."));
     }
+
+    private boolean doesReviewContain(String query, Review review) {
+        return review.getContent().contains(query)
+                || review.getTitle().contains(query)
+                || review.getMovieName().contains(query);
+    }
+
 }

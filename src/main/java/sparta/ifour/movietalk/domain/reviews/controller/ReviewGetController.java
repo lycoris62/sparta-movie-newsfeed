@@ -33,7 +33,9 @@ public class ReviewGetController {
     @GetMapping("/reviews/query/{queryName}") //리뷰 검색 목록 조회
     public ResponseEntity<List<ReviewResponseDto>> getReviewsBySearch(@PathVariable String queryName){
 
-        return null;
+        List<ReviewResponseDto> reviewListBySearch = reviewService.getReviewsBySearch(queryName);
+
+        return ResponseEntity.ok(reviewListBySearch);
     }
 
     @GetMapping("reviews/hashtag/{hashtagName}") // 특정 해시태그가 포함된 리뷰 조회

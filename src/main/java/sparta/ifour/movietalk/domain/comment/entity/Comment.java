@@ -27,4 +27,13 @@ public class Comment extends BaseEntity {
     @JoinColumn(name = "review_id")
     private Review review;
 
+    private Comment(String content, User user, Review review) {
+        this.content = content;
+        this.user = user;
+        this.review = review;
+    }
+
+    public static Comment create(String content, User user, Review review) {
+        return new Comment(content, user, review);
+    }
 }
