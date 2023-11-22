@@ -27,7 +27,16 @@ public class Hashtag {
     @Column(nullable = false, length = 15)
     private String name;
 
-    @OneToMany(mappedBy = "hashtage")
+    @OneToMany(mappedBy = "hashtag")
     private List<ReviewHashtag> reviewHashtagList = new ArrayList<>();
+
+    public Hashtag (String name) {
+        this.name = name;
+    }
+
+    public void addReviewHashtag(ReviewHashtag reviewHashtag) {
+        this.reviewHashtagList.add(reviewHashtag);
+        reviewHashtag.setHashtag(this);
+    }
 
 }
