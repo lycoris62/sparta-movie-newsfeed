@@ -1,9 +1,13 @@
 package sparta.ifour.movietalk.domain.comment.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
+import sparta.ifour.movietalk.domain.comment.dto.request.CommentCreateRequestDto;
+import sparta.ifour.movietalk.domain.comment.dto.response.CommentCreateResponseDto;
 import sparta.ifour.movietalk.domain.comment.service.CommentService;
+import sparta.ifour.movietalk.domain.user.entity.User;
 
 @RestController
 @RequiredArgsConstructor
@@ -11,5 +15,11 @@ import sparta.ifour.movietalk.domain.comment.service.CommentService;
 public class CommentController {
 
     private final CommentService commentService;
+
+    @PostMapping("/{reviewId}")
+    public ResponseEntity<CommentCreateResponseDto> createComment(@RequestBody CommentCreateRequestDto requestDto, @PathVariable Long reviewId, @AuthenticationPrincipal User user) {
+        CommentCreateResponseDto responseDto = commentService.createComment(requestDto, user, reviewId);
+        return ResponseEntity.ok(responseDto);
+    }
 
 }
