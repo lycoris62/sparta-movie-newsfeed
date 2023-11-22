@@ -43,4 +43,9 @@ public class Review extends BaseEntity {
         this.ratingScore = ratingScore;
         this.movieName = movieName;
     }
+
+    public void addReviewHashtag(ReviewHashtag reviewHashtag) {
+        this.reviewHashtagList.add(reviewHashtag);
+        reviewHashtag.setReview(this);
+    }
 }
