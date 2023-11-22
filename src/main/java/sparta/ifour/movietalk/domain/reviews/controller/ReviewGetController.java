@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import sparta.ifour.movietalk.domain.reviews.dto.ReviewResponseDto;
+import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewResponseDto;
 import sparta.ifour.movietalk.domain.reviews.service.ReviewService;
 
 import java.util.List;
