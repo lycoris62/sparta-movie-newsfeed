@@ -4,7 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import sparta.ifour.movietalk.domain.reviews.dto.request.ReviewRequestDto;
 import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewResponseDto;
+import sparta.ifour.movietalk.domain.reviews.entity.Hashtag;
 import sparta.ifour.movietalk.domain.reviews.entity.Review;
+import sparta.ifour.movietalk.domain.reviews.entity.ReviewHashtag;
+import sparta.ifour.movietalk.domain.reviews.repository.HashtagRepository;
+import sparta.ifour.movietalk.domain.reviews.repository.ReviewHashTagRepository;
 import sparta.ifour.movietalk.domain.reviews.repository.ReviewRepository;
 
 import java.util.List;
@@ -14,6 +18,8 @@ import java.util.List;
 public class ReviewService {
 
     private final ReviewRepository reviewRepository;
+    private final ReviewHashTagRepository reviewHashTagRepository;
+    private final HashtagRepository hashtagRepository;
 
     public ReviewResponseDto createReview(ReviewRequestDto requestDto) {
         Review review = Review.builder()
@@ -56,6 +62,21 @@ public class ReviewService {
 
     }
 
+    public List<ReviewResponseDto> getReviewsByTag(String hashtagName) {
+        Hashtag hashtag = getHashtagByname(hashtagName);
+
+        return hashtag.getReviewHashtagList().stream()
+                .map(ReviewHashtag::getReview)
+                .map(ReviewResponseDto::new)
+                .toList();
+    }
+
+    private Hashtag getHashtagByname(String name){
+
+        return hashtagRepository.findByName(name)
+                .orElseThrow(()->new IllegalArgumentException("해당 태그를 찾을 수 없습니다."));
+    }
+
     private Review getReviewById(Long id){
         return reviewRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 리뷰글을 찾을 수 없습니다."));
@@ -66,5 +87,6 @@ public class ReviewService {
                 || review.getTitle().contains(query)
                 || review.getMovieName().contains(query);
     }
+
 
 }

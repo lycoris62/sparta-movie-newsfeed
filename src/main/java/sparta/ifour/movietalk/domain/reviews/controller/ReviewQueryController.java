@@ -40,7 +40,10 @@ public class ReviewQueryController {
 
     @GetMapping("reviews/hashtag/{hashtagName}") // 특정 해시태그가 포함된 리뷰 조회
     public ResponseEntity<List<ReviewResponseDto>> getReviewsByHashTag(@PathVariable String hashtagName){
-        return null;
+
+        List<ReviewResponseDto> reviewListByTag = reviewService.getReviewsByTag(hashtagName);
+
+        return ResponseEntity.ok(reviewListByTag);
 
     }
 
