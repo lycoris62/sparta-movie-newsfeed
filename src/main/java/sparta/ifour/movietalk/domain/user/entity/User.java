@@ -10,6 +10,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sparta.ifour.movietalk.domain.model.BaseEntity;
+import sparta.ifour.movietalk.domain.user.dto.request.UserProfileUpdateRequestDto;
 import sparta.ifour.movietalk.domain.user.dto.request.UserSignupRequestDto;
 
 /**
@@ -44,7 +45,25 @@ public class User extends BaseEntity {
 		this.description = description;
 	}
 
+	/**
+	 * 회원가입
+	 */
 	public static User create(UserSignupRequestDto requestDto) {
 		return new User(requestDto.getLoginId(), requestDto.getPassword(), requestDto.getNickname(), requestDto.getDescription());
+	}
+
+	/**
+	 * 프로필 수정
+	 */
+	public void updateProfile(UserProfileUpdateRequestDto requestDto) {
+		this.nickname = requestDto.getNickname();
+		this.description = requestDto.getDescription();
+	}
+
+	/**
+	 * 비밀번호 수정
+	 */
+	public void updatePassword(String encodedPassword) {
+		this.password = encodedPassword;
 	}
 }
