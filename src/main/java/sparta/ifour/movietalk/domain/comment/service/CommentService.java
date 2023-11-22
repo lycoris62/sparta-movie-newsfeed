@@ -29,6 +29,11 @@ public class CommentService {
         return new CommentCreateResponseDto(comment);
     }
 
+    public void updateComment(CommentUpdateRequestDto requestDto, Long commentId, User user) {
+        Comment comment = getUserComment(commentId, user);
+        comment.update(requestDto.getContent());
+    }
+
     private Comment getUserComment(Long commentId, User user) {
         Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 댓글입니다."));
 
