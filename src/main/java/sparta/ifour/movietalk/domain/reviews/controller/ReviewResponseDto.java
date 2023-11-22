@@ -1,4 +1,5 @@
-package sparta.ifour.movietalk.domain.reviews.dto;
+package sparta.ifour.movietalk.domain.reviews.controller;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

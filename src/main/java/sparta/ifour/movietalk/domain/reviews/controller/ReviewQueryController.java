@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import sparta.ifour.movietalk.domain.reviews.dto.ReviewDetailResponseDto;
 import sparta.ifour.movietalk.domain.reviews.dto.ReviewPreviewResponseDto;
-import sparta.ifour.movietalk.domain.reviews.dto.ReviewResponseDto;
 import sparta.ifour.movietalk.domain.reviews.service.ReviewService;
 
 import java.util.List;
@@ -41,7 +40,7 @@ public class ReviewQueryController {
     }
 
     @GetMapping("reviews/hashtag/{hashtagName}") // 특정 해시태그가 포함된 리뷰 조회
-    public ResponseEntity<List<ReviewResponseDto>> getReviewsByHashTag(@PathVariable String hashtagName){
+    public ResponseEntity<List<ReviewPreviewResponseDto>> getReviewsByHashTag(@PathVariable String hashtagName){
         return null;
 
     }
