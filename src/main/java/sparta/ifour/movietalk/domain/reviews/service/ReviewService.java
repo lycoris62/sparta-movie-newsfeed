@@ -2,6 +2,8 @@ package sparta.ifour.movietalk.domain.reviews.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import sparta.ifour.movietalk.domain.reviews.dto.ReviewDetailResponseDto;
+import sparta.ifour.movietalk.domain.reviews.dto.ReviewPreviewResponseDto;
 import sparta.ifour.movietalk.domain.reviews.dto.ReviewResponseDto;
 import sparta.ifour.movietalk.domain.reviews.entity.Review;
 import sparta.ifour.movietalk.domain.reviews.repository.ReviewRepository;
@@ -16,30 +18,30 @@ public class ReviewService {
 
     private final ReviewRepository reviewRepository;
 
-    public ReviewResponseDto getReview(Long reviewId) {
+    public ReviewDetailResponseDto getReview(Long reviewId) {
 
         Review review = getReviewById(reviewId);
 
-        return new ReviewResponseDto(review);
+        return new ReviewDetailResponseDto(review);
 
     }
 
-    public List<ReviewResponseDto> getReviewsAll() {
+    public List<ReviewPreviewResponseDto> getReviewsAll() {
 
         List<Review> reviewListAll = reviewRepository.findAll();
 
         return reviewListAll.stream()
-                .map(ReviewResponseDto::new)
+                .map(ReviewPreviewResponseDto::new)
                 .toList();
 
     }
 
-    public List<ReviewResponseDto> getReviewsBySearch(String queryname){
+    public List<ReviewPreviewResponseDto> getReviewsBySearch(String queryname){
 
         return reviewRepository.findAll()
                 .stream()
                 .filter(review -> doesReviewContain(queryname, review))
-                .map(ReviewResponseDto::new)
+                .map(ReviewPreviewResponseDto::new)
                 .toList();
 
     }
