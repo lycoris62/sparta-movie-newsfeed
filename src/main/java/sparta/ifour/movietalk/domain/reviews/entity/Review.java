@@ -1,10 +1,12 @@
 package sparta.ifour.movietalk.domain.reviews.entity;
+
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import sparta.ifour.movietalk.domain.model.BaseEntity;
-import sparta.ifour.movietalk.domain.reviews.dto.request.ReviewRequestDto;
-import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewPreviewResponseDto;
 
 
 @Getter
