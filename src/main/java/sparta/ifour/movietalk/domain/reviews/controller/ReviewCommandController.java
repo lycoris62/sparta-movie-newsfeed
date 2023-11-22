@@ -32,7 +32,9 @@ public class ReviewCommandController {
     }
 
     @DeleteMapping("/{reviewId}")
-    public void deleteReview(@PathVariable Long reviewId) {
+    public ResponseEntity<?> deleteReview(@PathVariable Long reviewId) {
         reviewService.deleteReview(reviewId);
+
+        return ResponseEntity.ok().build();
     }
 }
