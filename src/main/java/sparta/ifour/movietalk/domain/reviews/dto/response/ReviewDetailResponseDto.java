@@ -10,11 +10,12 @@ import java.util.List;
  * 상세 조회 관련 ResponseDto
  */
 @Getter
-public class ReviewDetailResponseDto extends ReviewPreviewResponseDto {
+public class ReviewDetailResponseDto {
+    private ReviewPreviewResponseDto review;
     private List<CommentCreateResponseDto> commentList;
 
     public ReviewDetailResponseDto(Review review, List<CommentCreateResponseDto> commentList) {
-        super(review);
+        this.review = new ReviewPreviewResponseDto(review);
         this.commentList = commentList;
     }
 }
