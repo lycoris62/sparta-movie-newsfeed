@@ -32,6 +32,9 @@ public class Review extends BaseEntity {
 
     @Builder
     public Review(String title, String content, Float ratingScore, String movieName) {
-
+        this.title = title;
+        this.content = content;
+        this.ratingScore = ratingScore;
+        this.movieName = movieName;
     }
 }
