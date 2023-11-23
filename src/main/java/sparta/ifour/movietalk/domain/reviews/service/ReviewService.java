@@ -7,6 +7,7 @@ import sparta.ifour.movietalk.domain.reviews.dto.request.ReviewRequestDto;
 import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewPreviewResponseDto;
 import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewResponseDto;
 import sparta.ifour.movietalk.domain.reviews.entity.Hashtag;
+import sparta.ifour.movietalk.domain.reviews.entity.Like;
 import sparta.ifour.movietalk.domain.reviews.entity.Review;
 import sparta.ifour.movietalk.domain.reviews.entity.ReviewHashtag;
 import sparta.ifour.movietalk.domain.reviews.repository.HashtagRepository;
