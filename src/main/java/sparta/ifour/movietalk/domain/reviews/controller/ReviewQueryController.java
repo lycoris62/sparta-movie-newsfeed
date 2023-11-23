@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewPreviewResponseDto;
 import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewResponseDto;
 import sparta.ifour.movietalk.domain.reviews.service.ReviewService;
 
@@ -19,8 +20,8 @@ public class ReviewQueryController {
     private final ReviewService reviewService;
 
     @GetMapping("/reviews") //리뷰 전체 목록 조회
-    public ResponseEntity<List<ReviewResponseDto>> getAllReviews(){
-        List<ReviewResponseDto> reviewListAll = reviewService.getReviewsAll();
+    public ResponseEntity<List<ReviewPreviewResponseDto>> getAllReviews(){
+        List<ReviewPreviewResponseDto> reviewListAll = reviewService.getReviewsAll();
         return ResponseEntity.ok(reviewListAll);
     }
 
@@ -31,17 +32,17 @@ public class ReviewQueryController {
     }
 
     @GetMapping("/reviews/query/{queryName}") //리뷰 검색 목록 조회
-    public ResponseEntity<List<ReviewResponseDto>> getReviewsBySearch(@PathVariable String queryName){
+    public ResponseEntity<List<ReviewPreviewResponseDto>> getReviewsBySearch(@PathVariable String queryName){
 
-        List<ReviewResponseDto> reviewListBySearch = reviewService.getReviewsBySearch(queryName);
+        List<ReviewPreviewResponseDto> reviewListBySearch = reviewService.getReviewsBySearch(queryName);
 
         return ResponseEntity.ok(reviewListBySearch);
     }
 
     @GetMapping("reviews/hashtag/{hashtagName}") // 특정 해시태그가 포함된 리뷰 조회
-    public ResponseEntity<List<ReviewResponseDto>> getReviewsByHashTag(@PathVariable String hashtagName){
+    public ResponseEntity<List<ReviewPreviewResponseDto>> getReviewsByHashTag(@PathVariable String hashtagName){
 
-        List<ReviewResponseDto> reviewListByTag = reviewService.getReviewsByTag(hashtagName);
+        List<ReviewPreviewResponseDto> reviewListByTag = reviewService.getReviewsByTag(hashtagName);
 
         return ResponseEntity.ok(reviewListByTag);
 
