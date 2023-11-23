@@ -18,7 +18,6 @@ import sparta.ifour.movietalk.domain.user.entity.User;
 
 import java.nio.file.AccessDeniedException;
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
