@@ -59,7 +59,7 @@ public class ReviewService {
         reviewRepository.delete(review);
     }
 
-    public void validateAuthor(Review review, User user) {
+    private void validateAuthor(Review review, User user) {
         if(!user.getLoginId().equals(review.getUser().getLoginId()))
             throw new AccessDeniedException("다른 사용자가 작성한 리뷰는 수정할 수 없습니다.");
     }
