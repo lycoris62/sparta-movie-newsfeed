@@ -16,7 +16,7 @@ import sparta.ifour.movietalk.domain.reviews.repository.ReviewHashTagRepository;
 import sparta.ifour.movietalk.domain.reviews.repository.ReviewRepository;
 import sparta.ifour.movietalk.domain.user.entity.User;
 
-import java.nio.file.AccessDeniedException;
+import org.springframework.security.access.AccessDeniedException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -57,7 +57,7 @@ public class ReviewService {
     }
 
     @Transactional
-    public void clickLike(Long reviewId, User user) throws AccessDeniedException { // 좋아요 클릭시
+    public void clickLike(Long reviewId, User user) { // 좋아요 클릭시
         Review review = getReviewById(reviewId);
         validateAuthorClick(user, review); // 좋아요를 누른사람이 작성자인지 확인
 
@@ -68,7 +68,7 @@ public class ReviewService {
                         );
     }
 
-    private void validateAuthorClick(User user, Review review) throws AccessDeniedException {
+    private void validateAuthorClick(User user, Review review) {
         if(user.getLoginId().equals(review.getUser().getLoginId())) {
             throw new AccessDeniedException("작성자는 좋아요를 누를 수 없습니다.");
         }

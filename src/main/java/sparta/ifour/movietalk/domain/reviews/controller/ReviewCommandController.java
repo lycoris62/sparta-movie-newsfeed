@@ -9,8 +9,6 @@ import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewPreviewResponseD
 import sparta.ifour.movietalk.domain.reviews.service.ReviewService;
 import sparta.ifour.movietalk.global.config.security.UserDetailsImpl;
 
-import java.nio.file.AccessDeniedException;
-
 /**
  * Review Create, Update, Delete 하는 기능을 가진 Controller
  */
@@ -43,7 +41,7 @@ public class ReviewCommandController {
 
     @PostMapping("/{reviewId}/like")
     public ResponseEntity<?> clickLike(@PathVariable Long reviewId,
-                                       @AuthenticationPrincipal UserDetailsImpl userDetails) throws AccessDeniedException {
+                                       @AuthenticationPrincipal UserDetailsImpl userDetails) {
         reviewService.clickLike(reviewId, userDetails.getUser());
 
         return ResponseEntity.ok().build();
