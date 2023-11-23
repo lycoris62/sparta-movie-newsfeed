@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import sparta.ifour.movietalk.domain.user.dto.request.UserLoginRequestDto;
 import sparta.ifour.movietalk.domain.user.dto.request.UserSignupRequestDto;
 import sparta.ifour.movietalk.domain.user.service.AuthService;
+import sparta.ifour.movietalk.global.config.security.jwt.JwtUtil;
 
 /**
  * 인증 관련 컨트롤러.
@@ -44,7 +45,7 @@ public class AuthController {
 		String token = authService.login(request);
 
 		return ResponseEntity.ok()
-			.header("Authorization", token)
+			.header(JwtUtil.AUTHORIZATION_HEADER, token)
 			.build();
 	}
 }

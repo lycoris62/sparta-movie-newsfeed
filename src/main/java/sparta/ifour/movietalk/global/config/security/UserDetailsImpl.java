@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import sparta.ifour.movietalk.domain.user.entity.User;
-import sparta.ifour.movietalk.domain.user.entity.UserRoleEnum;
 
 @Getter
 @RequiredArgsConstructor
@@ -29,7 +28,7 @@ public class UserDetailsImpl implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return List.of(UserRoleEnum.USER::getAuthority);
+		return List.of(user.getRole()::getAuthority);
 	}
 
 	@Override
