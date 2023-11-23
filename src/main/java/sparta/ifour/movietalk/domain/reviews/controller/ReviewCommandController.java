@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import sparta.ifour.movietalk.domain.reviews.dto.request.ReviewRequestDto;
 import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewPreviewResponseDto;
 import sparta.ifour.movietalk.domain.reviews.service.ReviewService;
-import sparta.ifour.movietalk.domain.user.entity.User;
 import sparta.ifour.movietalk.global.config.security.UserDetailsImpl;
 
 /**
@@ -41,15 +40,20 @@ public class ReviewCommandController {
     }
 
     @DeleteMapping("/{reviewId}")
-    public ResponseEntity<?> deleteReview(@PathVariable Long reviewId) {
-        reviewService.deleteReview(reviewId);
+    public ResponseEntity<?> deleteReview(
+            @PathVariable Long reviewId,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) { // 리뷰 삭제
+
+        reviewService.deleteReview(reviewId, userDetails.getUser());
 
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/{reviewId}/like")
-    public ResponseEntity<?> clickLike(@PathVariable Long reviewId,
-                                       @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public ResponseEntity<?> clickLike(
+            @PathVariable Long reviewId,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        
         reviewService.clickLike(reviewId, userDetails.getUser());
 
         return ResponseEntity.ok().build();
