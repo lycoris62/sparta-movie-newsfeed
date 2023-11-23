@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import sparta.ifour.movietalk.domain.model.BaseEntity;
+import sparta.ifour.movietalk.domain.user.entity.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,10 @@ public class Review extends BaseEntity {
     @Column(nullable = false)
     @Length(max = 100)
     private String movieName;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @OneToMany(mappedBy = "review")
     private List<ReviewHashtag> reviewHashtagList = new ArrayList<>();

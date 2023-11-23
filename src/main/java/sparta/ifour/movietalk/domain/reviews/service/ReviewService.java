@@ -15,6 +15,7 @@ import sparta.ifour.movietalk.domain.reviews.repository.LikeRepository;
 import sparta.ifour.movietalk.domain.reviews.repository.ReviewHashTagRepository;
 import sparta.ifour.movietalk.domain.reviews.repository.ReviewRepository;
 import sparta.ifour.movietalk.domain.user.entity.User;
+import sparta.ifour.movietalk.domain.user.repository.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
