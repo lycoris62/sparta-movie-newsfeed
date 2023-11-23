@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import sparta.ifour.movietalk.domain.reviews.entity.Review;
+import sparta.ifour.movietalk.domain.reviews.entity.ReviewHashtag;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -21,6 +23,10 @@ public class ReviewResponseDto {
 
     private String movieName;
 
+    private Integer countLikes;
+
+    private List<ReviewHashtag> reviewHashtagList;
+
     private LocalDateTime createdAt;
 
 
@@ -31,6 +37,8 @@ public class ReviewResponseDto {
         this.ratingScore = review.getRatingScore();
         this.movieName = review.getMovieName();
         this.createdAt = review.getCreatedAt();
+        this.countLikes = review.getLikeList().size();
+        this.reviewHashtagList = review.getReviewHashtagList();
     }
 
 
