@@ -58,8 +58,7 @@ public class ReviewService {
 
 
     public void clickLike(Long reviewId, User user) { // 좋아요 클릭시
-        Review review = reviewRepository.findById(reviewId)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 리뷰입니다."));
+        Review review = getReviewById(reviewId);
         if (user.getId().equals(review.getUser().getId()))
             return;
         // 내가 작성한 리뷰가 아닐 경우
