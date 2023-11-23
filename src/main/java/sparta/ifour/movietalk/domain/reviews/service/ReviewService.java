@@ -56,6 +56,28 @@ public class ReviewService {
         reviewRepository.delete(review);
     }
 
+    @Transactional
+    public void clickLike(Long reviewId, User user) { // 좋아요 클릭시
+        Optional<Like> findLike = likeRepository.findByReviewIdAndUser(reviewId, user);
+        Review review = reviewRepository.findById(reviewId).get();
+
+        if (findLike.isPresent()) { // 이미 좋아요를 눌렀을 경우 => 삭제
+            review.removeLike(findLike.get());
+        } else { // 좋아요를 누르지 않은 경우 => 추가
+            addLike(review, user);
+        }
+        reviewRepository.save(review);
+    }
+
+    public void addLike(Review review, User user) {
+        Like like = Like.builder()
+                .user(user)
+                .review(review)
+                .build();
+
+        review.addLike(like);
+    }
+
     public ReviewResponseDto getReview(Long reviewId) {
 
         Review review = getReviewById(reviewId);
