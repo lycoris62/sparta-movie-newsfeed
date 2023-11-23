@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
+import sparta.ifour.movietalk.domain.comment.entity.Comment;
 import sparta.ifour.movietalk.domain.model.BaseEntity;
 import sparta.ifour.movietalk.domain.user.entity.User;
 
@@ -47,6 +48,9 @@ public class Review extends BaseEntity {
 
     @OneToMany(mappedBy = "review")
     private List<Like> likeList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "review")
+    private  List<Comment> commentList = new ArrayList<>();
 
     @Builder
     public Review(String title, String content, Float ratingScore, String movieName) {
