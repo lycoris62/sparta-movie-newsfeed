@@ -29,31 +29,39 @@ public class ReviewService {
     private final LikeRepository likeRepository;
 
     @Transactional
-    public ReviewPreviewResponseDto createReview(ReviewRequestDto requestDto) { // 리뷰 생성
+    public ReviewPreviewResponseDto createReview(ReviewRequestDto requestDto, User user) { // 리뷰 생성
         Review review = Review.builder()
                 .title(requestDto.getTitle())
                 .content(requestDto.getContent())
                 .ratingScore(requestDto.getRatingScore())
                 .movieName(requestDto.getMovieName())
+                .user(user)
                 .build();
 
-        reviewRepository.save(review);
+        Review saveReview = reviewRepository.save(review);
 
-        return new ReviewPreviewResponseDto(review);
+        return new ReviewPreviewResponseDto(saveReview);
     }
 
     @Transactional
-    public void updateReview(ReviewRequestDto requestDto, Long reviewId) { // 리뷰 수정
+    public void updateReview(ReviewRequestDto requestDto, Long reviewId, User user) { // 리뷰 수정
         Review review = getReviewById(reviewId);
 
+        validateAuthor(review, user);
         review.update(requestDto.getTitle(), requestDto.getContent(), requestDto.getRatingScore());
     }
 
     @Transactional
-    public void deleteReview(Long reviewId) { // 리뷰 삭제
+    public void deleteReview(Long reviewId, User user) { // 리뷰 삭제
         Review review = getReviewById(reviewId);
 
+        validateAuthor(review, user);
         reviewRepository.delete(review);
+    }
+
+    private void validateAuthor(Review review, User user) {
+        if(!user.getLoginId().equals(review.getUser().getLoginId()))
+            throw new AccessDeniedException("다른 사용자가 작성한 리뷰는 수정할 수 없습니다.");
     }
 
     @Transactional

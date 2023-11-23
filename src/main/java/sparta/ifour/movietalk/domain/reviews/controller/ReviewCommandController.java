@@ -19,29 +19,41 @@ public class ReviewCommandController {
     private final ReviewService reviewService;
 
     @PostMapping
-    public ResponseEntity<ReviewPreviewResponseDto> createReview(@RequestBody ReviewRequestDto requestDto) { // 리뷰 생성
-        ReviewPreviewResponseDto previewResponseDto = reviewService.createReview(requestDto);
+    public ResponseEntity<ReviewPreviewResponseDto> createReview(
+            @RequestBody ReviewRequestDto requestDto,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) { // 리뷰 생성
+
+        ReviewPreviewResponseDto previewResponseDto = reviewService.createReview(requestDto, userDetails.getUser());
 
         return ResponseEntity.ok(previewResponseDto);
     }
 
     @PatchMapping("/{reviewId}")
-    public ResponseEntity<?> updateReview(@RequestBody ReviewRequestDto requestDto, @PathVariable Long reviewId) { // 리뷰 수정
-        reviewService.updateReview(requestDto, reviewId);
+    public ResponseEntity<?> updateReview(
+            @RequestBody ReviewRequestDto requestDto,
+            @PathVariable Long reviewId,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) { // 리뷰 수정
+
+        reviewService.updateReview(requestDto, reviewId, userDetails.getUser());
 
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{reviewId}")
-    public ResponseEntity<?> deleteReview(@PathVariable Long reviewId) {
-        reviewService.deleteReview(reviewId);
+    public ResponseEntity<?> deleteReview(
+            @PathVariable Long reviewId,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) { // 리뷰 삭제
+
+        reviewService.deleteReview(reviewId, userDetails.getUser());
 
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/{reviewId}/like")
-    public ResponseEntity<?> clickLike(@PathVariable Long reviewId,
-                                       @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public ResponseEntity<?> clickLike(
+            @PathVariable Long reviewId,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        
         reviewService.clickLike(reviewId, userDetails.getUser());
 
         return ResponseEntity.ok().build();

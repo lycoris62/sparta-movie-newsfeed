@@ -53,11 +53,12 @@ public class Review extends BaseEntity {
     private  List<Comment> commentList = new ArrayList<>();
 
     @Builder
-    public Review(String title, String content, Float ratingScore, String movieName) {
+    public Review(String title, String content, Float ratingScore, String movieName, User user) {
         this.title = title;
         this.content = content;
         this.ratingScore = ratingScore;
         this.movieName = movieName;
+        this.user = user;
     }
 
     public void update(String title, String content, Float ratingScore) {
