@@ -29,17 +29,18 @@ public class ReviewService {
     private final LikeRepository likeRepository;
 
     @Transactional
-    public ReviewPreviewResponseDto createReview(ReviewRequestDto requestDto) { // 리뷰 생성
+    public ReviewPreviewResponseDto createReview(ReviewRequestDto requestDto, User user) { // 리뷰 생성
         Review review = Review.builder()
                 .title(requestDto.getTitle())
                 .content(requestDto.getContent())
                 .ratingScore(requestDto.getRatingScore())
                 .movieName(requestDto.getMovieName())
+                .user(user)
                 .build();
 
-        reviewRepository.save(review);
+        Review saveReview = reviewRepository.save(review);
 
-        return new ReviewPreviewResponseDto(review);
+        return new ReviewPreviewResponseDto(saveReview);
     }
 
     @Transactional

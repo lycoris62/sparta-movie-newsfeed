@@ -19,8 +19,11 @@ public class ReviewCommandController {
     private final ReviewService reviewService;
 
     @PostMapping
-    public ResponseEntity<ReviewPreviewResponseDto> createReview(@RequestBody ReviewRequestDto requestDto) { // 리뷰 생성
-        ReviewPreviewResponseDto previewResponseDto = reviewService.createReview(requestDto);
+    public ResponseEntity<ReviewPreviewResponseDto> createReview(
+            @RequestBody ReviewRequestDto requestDto,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) { // 리뷰 생성
+
+        ReviewPreviewResponseDto previewResponseDto = reviewService.createReview(requestDto, userDetails.getUser());
 
         return ResponseEntity.ok(previewResponseDto);
     }
