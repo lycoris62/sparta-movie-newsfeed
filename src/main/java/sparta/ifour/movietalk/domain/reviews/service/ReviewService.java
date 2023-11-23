@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sparta.ifour.movietalk.domain.reviews.dto.request.ReviewRequestDto;
+import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewDetailResponseDto;
 import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewPreviewResponseDto;
-import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewResponseDto;
 import sparta.ifour.movietalk.domain.reviews.entity.Hashtag;
 import sparta.ifour.movietalk.domain.reviews.entity.Like;
 import sparta.ifour.movietalk.domain.reviews.entity.Review;
@@ -74,11 +74,11 @@ public class ReviewService {
         }
     }
 
-    public ReviewResponseDto getReview(Long reviewId) {
+    public ReviewDetailResponseDto getReview(Long reviewId) {
 
         Review review = getReviewById(reviewId);
 
-        return new ReviewResponseDto(review);
+        return new ReviewDetailResponseDto(review);
 
     }
 

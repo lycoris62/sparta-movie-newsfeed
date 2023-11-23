@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewDetailResponseDto;
 import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewPreviewResponseDto;
-import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewResponseDto;
 import sparta.ifour.movietalk.domain.reviews.service.ReviewService;
 
 import java.util.List;
@@ -26,8 +26,8 @@ public class ReviewQueryController {
     }
 
     @GetMapping("/reviews/{reviewId}") // 특정 리뷰 상세조회
-    public ResponseEntity<ReviewResponseDto> getReview(@PathVariable Long reviewId){
-        ReviewResponseDto reviewResponseDto = reviewService.getReview(reviewId);
+    public ResponseEntity<ReviewDetailResponseDto> getReview(@PathVariable Long reviewId){
+        ReviewDetailResponseDto reviewResponseDto = reviewService.getReview(reviewId);
         return ResponseEntity.ok(reviewResponseDto);
     }
 
