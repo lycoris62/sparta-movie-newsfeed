@@ -82,32 +82,32 @@ public class ReviewService {
 
     }
 
-    public List<ReviewResponseDto> getReviewsAll() {
+    public List<ReviewPreviewResponseDto> getReviewsAll() {
 
         List<Review> reviewListAll = reviewRepository.findAll();
 
         return reviewListAll.stream()
-                .map(ReviewResponseDto::new)
+                .map(ReviewPreviewResponseDto::new)
                 .toList();
 
     }
 
-    public List<ReviewResponseDto> getReviewsBySearch(String queryname) {
+    public List<ReviewPreviewResponseDto> getReviewsBySearch(String queryname) {
 
         return reviewRepository.findAll()
                 .stream()
                 .filter(review -> doesReviewContain(queryname, review))
-                .map(ReviewResponseDto::new)
+                .map(ReviewPreviewResponseDto::new)
                 .toList();
 
     }
 
-    public List<ReviewResponseDto> getReviewsByTag(String hashtagName) {
+    public List<ReviewPreviewResponseDto> getReviewsByTag(String hashtagName) {
         Hashtag hashtag = getHashtagByname(hashtagName);
 
         return hashtag.getReviewHashtagList().stream()
                 .map(ReviewHashtag::getReview)
-                .map(ReviewResponseDto::new)
+                .map(ReviewPreviewResponseDto::new)
                 .toList();
     }
 
