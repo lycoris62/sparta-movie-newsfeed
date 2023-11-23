@@ -2,7 +2,6 @@ package sparta.ifour.movietalk.domain.reviews.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sparta.ifour.movietalk.domain.model.BaseEntity;
@@ -25,7 +24,6 @@ public class Like extends BaseEntity {
     @JoinColumn(name = "review_id", nullable = false)
     private Review review;
 
-    @Builder
     public Like(User user, Review review) {
         this.user = user;
         this.review = review;

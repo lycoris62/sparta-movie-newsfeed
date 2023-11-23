@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import sparta.ifour.movietalk.domain.reviews.dto.request.ReviewRequestDto;
 import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewPreviewResponseDto;
 import sparta.ifour.movietalk.domain.reviews.service.ReviewService;
-import sparta.ifour.movietalk.domain.user.entity.User;
 import sparta.ifour.movietalk.global.config.security.UserDetailsImpl;
+
+import java.nio.file.AccessDeniedException;
 
 /**
  * Review Create, Update, Delete 하는 기능을 가진 Controller
@@ -42,7 +43,7 @@ public class ReviewCommandController {
 
     @PostMapping("/{reviewId}/like")
     public ResponseEntity<?> clickLike(@PathVariable Long reviewId,
-                                       @AuthenticationPrincipal UserDetailsImpl userDetails) {
+                                       @AuthenticationPrincipal UserDetailsImpl userDetails) throws AccessDeniedException {
         reviewService.clickLike(reviewId, userDetails.getUser());
 
         return ResponseEntity.ok().build();

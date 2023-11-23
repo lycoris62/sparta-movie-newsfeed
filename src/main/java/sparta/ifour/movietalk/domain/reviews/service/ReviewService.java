@@ -16,6 +16,7 @@ import sparta.ifour.movietalk.domain.reviews.repository.ReviewHashTagRepository;
 import sparta.ifour.movietalk.domain.reviews.repository.ReviewRepository;
 import sparta.ifour.movietalk.domain.user.entity.User;
 
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,33 +57,22 @@ public class ReviewService {
         reviewRepository.delete(review);
     }
 
-
-    public void clickLike(Long reviewId, User user) { // 좋아요 클릭시
-        Review review = getReviewById(reviewId);
-        if (user.getId().equals(review.getUser().getId()))
-            return;
-        // 내가 작성한 리뷰가 아닐 경우
-        Optional<Like> findLike = likeRepository.findByReviewIdAndUser(reviewId, user.getId());
-        canClickLike(user, findLike, review);
-    }
-
     @Transactional
-    public void canClickLike(User user, Optional<Like> findLike, Review review) { // 작성자가 아니라 좋아요 클릭이 가능할 때
-        if (findLike.isPresent()) { // 이미 좋아요를 눌렀을 경우 => 삭제
-            review.removeLike(findLike.get());
-        } else { // 좋아요를 누르지 않은 경우 => 추가
-            addLike(review, user);
-        }
-        reviewRepository.save(review);
+    public void clickLike(Long reviewId, User user) throws AccessDeniedException { // 좋아요 클릭시
+        Review review = getReviewById(reviewId);
+        validateAuthorClick(user, review); // 좋아요를 누른사람이 작성자인지 확인
+
+        likeRepository.findByReviewIdAndUser(reviewId, user.getId())
+                        .ifPresentOrElse(
+                                (like) -> review.removeLike(like), // 이미 좋아요 눌렀을 경우
+                                () -> review.addLike(new Like(user, review)) // 좋아요를 누르지 않은 경우
+                        );
     }
 
-    public void addLike(Review review, User user) {
-        Like like = Like.builder()
-                .user(user)
-                .review(review)
-                .build();
-
-        review.addLike(like);
+    private void validateAuthorClick(User user, Review review) throws AccessDeniedException {
+        if(user.getLoginId().equals(review.getUser().getLoginId())) {
+            throw new AccessDeniedException("작성자는 좋아요를 누를 수 없습니다.");
+        }
     }
 
     public ReviewResponseDto getReview(Long reviewId) {
