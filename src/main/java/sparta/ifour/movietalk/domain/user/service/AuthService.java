@@ -9,6 +9,7 @@ import sparta.ifour.movietalk.domain.user.dto.request.UserLoginRequestDto;
 import sparta.ifour.movietalk.domain.user.dto.request.UserSignupRequestDto;
 import sparta.ifour.movietalk.domain.user.entity.User;
 import sparta.ifour.movietalk.domain.user.repository.UserRepository;
+import sparta.ifour.movietalk.global.config.security.jwt.JwtUtil;
 
 /**
  * 사용자 관련 서비스
@@ -19,6 +20,7 @@ import sparta.ifour.movietalk.domain.user.repository.UserRepository;
 @RequiredArgsConstructor
 public class AuthService {
 
+	private final JwtUtil jwtUtil;
 	private final UserRepository userRepository;
 
 	/**
@@ -50,7 +52,7 @@ public class AuthService {
 
 		validatePassword(requestDto.getPassword(), user.getPassword());
 
-		return "token";
+		return jwtUtil.createToken(user.getNickname(), user.getRole());
 	}
 
 	private void validatePassword(String rawPassword, String userPassword) {
