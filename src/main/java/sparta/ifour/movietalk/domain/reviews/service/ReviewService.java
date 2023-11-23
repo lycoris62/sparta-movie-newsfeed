@@ -62,7 +62,7 @@ public class ReviewService {
         if (user.getId().equals(review.getUser().getId()))
             return;
         // 내가 작성한 리뷰가 아닐 경우
-        Optional<Like> findLike = likeRepository.findByReviewIdAndUser(reviewId, user);
+        Optional<Like> findLike = likeRepository.findByReviewIdAndUser(reviewId, user.getId());
         canClickLike(user, findLike, review);
     }
 
