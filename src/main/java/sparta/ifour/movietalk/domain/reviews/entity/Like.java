@@ -30,4 +30,8 @@ public class Like extends BaseEntity {
         this.user = user;
         this.review = review;
     }
+
+    public void setReview(Review review) {
+        this.review = review;
+    }
 }

@@ -74,7 +74,7 @@ public class ReviewService {
 
     }
 
-    public List<ReviewResponseDto> getReviewsBySearch(String queryname){
+    public List<ReviewResponseDto> getReviewsBySearch(String queryname) {
 
         return reviewRepository.findAll()
                 .stream()
@@ -93,13 +93,13 @@ public class ReviewService {
                 .toList();
     }
 
-    private Hashtag getHashtagByname(String name){
+    private Hashtag getHashtagByname(String name) {
 
         return hashtagRepository.findByName(name)
-                .orElseThrow(()->new IllegalArgumentException("해당 태그를 찾을 수 없습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("해당 태그를 찾을 수 없습니다."));
     }
 
-    private Review getReviewById(Long id){
+    private Review getReviewById(Long id) {
         return reviewRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 리뷰글을 찾을 수 없습니다."));
     }

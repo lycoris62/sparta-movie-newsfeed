@@ -61,4 +61,9 @@ public class Review extends BaseEntity {
         this.reviewHashtagList.add(reviewHashtag);
         reviewHashtag.setReview(this);
     }
+
+    public void addLike(Like like) {
+        this.likeList.add(like);
+        like.setReview(this);
+    }
 }
