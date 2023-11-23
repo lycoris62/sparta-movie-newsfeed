@@ -18,19 +18,29 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping("")
-    public ResponseEntity<CommentCreateResponseDto> createComment(@RequestBody CommentCreateRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public ResponseEntity<CommentCreateResponseDto> createComment(
+            @RequestBody CommentCreateRequestDto requestDto,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) {
+
         CommentCreateResponseDto responseDto = commentService.createComment(requestDto, userDetails.getUser());
         return ResponseEntity.ok(responseDto);
     }
 
     @PatchMapping("/{commentId}")
-    public ResponseEntity<?> updateComment(@RequestBody CommentUpdateRequestDto requestDto, @PathVariable Long commentId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public ResponseEntity<?> updateComment(
+            @RequestBody CommentUpdateRequestDto requestDto,
+            @PathVariable Long commentId,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) {
+
         commentService.updateComment(requestDto, commentId, userDetails.getUser());
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{commentId}")
-    public ResponseEntity<?> deleteComment(@PathVariable Long commentId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public ResponseEntity<?> deleteComment(
+            @PathVariable Long commentId,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) {
+
         commentService.deleteComment(commentId, userDetails.getUser());
         return ResponseEntity.ok().build();
     }
