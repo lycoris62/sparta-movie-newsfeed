@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import sparta.ifour.movietalk.domain.reviews.dto.request.ReviewRequestDto;
 import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewPreviewResponseDto;
 import sparta.ifour.movietalk.domain.reviews.service.ReviewService;
+import sparta.ifour.movietalk.domain.user.entity.User;
 import sparta.ifour.movietalk.global.config.security.UserDetailsImpl;
 
 /**
@@ -29,8 +30,12 @@ public class ReviewCommandController {
     }
 
     @PatchMapping("/{reviewId}")
-    public ResponseEntity<?> updateReview(@RequestBody ReviewRequestDto requestDto, @PathVariable Long reviewId) { // 리뷰 수정
-        reviewService.updateReview(requestDto, reviewId);
+    public ResponseEntity<?> updateReview(
+            @RequestBody ReviewRequestDto requestDto,
+            @PathVariable Long reviewId,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) { // 리뷰 수정
+
+        reviewService.updateReview(requestDto, reviewId, userDetails.getUser());
 
         return ResponseEntity.ok().build();
     }

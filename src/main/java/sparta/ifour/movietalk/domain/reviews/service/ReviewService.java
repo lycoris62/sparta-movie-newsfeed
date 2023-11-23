@@ -44,10 +44,14 @@ public class ReviewService {
     }
 
     @Transactional
-    public void updateReview(ReviewRequestDto requestDto, Long reviewId) { // 리뷰 수정
+    public void updateReview(ReviewRequestDto requestDto, Long reviewId, User user) { // 리뷰 수정
         Review review = getReviewById(reviewId);
 
-        review.update(requestDto.getTitle(), requestDto.getContent(), requestDto.getRatingScore());
+        if(user.getLoginId().equals(review.getUser().getLoginId())) {
+            review.update(requestDto.getTitle(), requestDto.getContent(), requestDto.getRatingScore());
+        } else {
+            throw new AccessDeniedException("다른 사용자가 작성한 리뷰는 수정할 수 없습니다.");
+        }
     }
 
     @Transactional
