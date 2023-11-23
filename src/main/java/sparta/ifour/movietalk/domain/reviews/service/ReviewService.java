@@ -62,7 +62,7 @@ public class ReviewService {
         Review review = getReviewById(reviewId);
         validateAuthorClick(user, review); // 좋아요를 누른사람이 작성자인지 확인
 
-        likeRepository.findByReviewIdAndUser(reviewId, user.getId())
+        likeRepository.findByReviewIdAndUserId(reviewId, user.getId())
                         .ifPresentOrElse(
                                 (like) -> review.removeLike(like), // 이미 좋아요 눌렀을 경우
                                 () -> review.addLike(new Like(user, review)) // 좋아요를 누르지 않은 경우
