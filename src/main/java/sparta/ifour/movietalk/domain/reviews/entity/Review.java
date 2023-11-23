@@ -66,4 +66,9 @@ public class Review extends BaseEntity {
         this.likeList.add(like);
         like.setReview(this);
     }
+
+    public void removeLike(Like like) {
+        this.likeList.remove(like);
+        like.setReview(null);
+    }
 }
