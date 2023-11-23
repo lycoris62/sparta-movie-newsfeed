@@ -22,8 +22,8 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final ReviewRepository reviewRepository;
 
-    public CommentCreateResponseDto createComment(CommentCreateRequestDto requestDto, User user, Long reviewId) {
-        Review review = reviewRepository.findById(reviewId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 리뷰입니다."));
+    public CommentCreateResponseDto createComment(CommentCreateRequestDto requestDto, User user) {
+        Review review = reviewRepository.findById(requestDto.getReviewId()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 리뷰입니다."));
         Comment comment = Comment.create(requestDto.getContent(), user, review);
         commentRepository.save(comment);
         return new CommentCreateResponseDto(comment);
