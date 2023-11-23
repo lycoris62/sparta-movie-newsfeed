@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import sparta.ifour.movietalk.domain.reviews.dto.request.ReviewRequestDto;
 import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewPreviewResponseDto;
 import sparta.ifour.movietalk.domain.reviews.service.ReviewService;
+import sparta.ifour.movietalk.domain.user.entity.User;
 import sparta.ifour.movietalk.global.config.security.UserDetailsImpl;
 
 /**

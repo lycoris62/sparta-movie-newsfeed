@@ -45,7 +45,7 @@ public class Review extends BaseEntity {
     @OneToMany(mappedBy = "review")
     private List<ReviewHashtag> reviewHashtagList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "like")
+    @OneToMany(mappedBy = "review")
     private List<Like> likeList = new ArrayList<>();
 
     @Builder
