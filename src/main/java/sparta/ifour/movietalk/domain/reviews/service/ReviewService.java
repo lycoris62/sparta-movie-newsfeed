@@ -16,6 +16,7 @@ import sparta.ifour.movietalk.domain.reviews.repository.ReviewHashTagRepository;
 import sparta.ifour.movietalk.domain.reviews.repository.ReviewRepository;
 import sparta.ifour.movietalk.domain.user.entity.User;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,19 +57,25 @@ public class ReviewService {
         reviewRepository.delete(review);
     }
 
-    @Transactional
+
     public void clickLike(Long reviewId, User user) { // 좋아요 클릭시
         Optional<Like> findLike = likeRepository.findByReviewIdAndUser(reviewId, user);
-        Review review = reviewRepository.findById(reviewId).get();
 
         if(!user.getId().equals(findLike.get().getReview().getUser().getId())) { // 내가 작성한 리뷰가 아닐 경우
-            if (findLike.isPresent()) { // 이미 좋아요를 눌렀을 경우 => 삭제
-                review.removeLike(findLike.get());
-            } else { // 좋아요를 누르지 않은 경우 => 추가
-                addLike(review, user);
-            }
-            reviewRepository.save(review);
+            canClickLike(reviewId, user, findLike);
         }
+    }
+
+    @Transactional
+    public void canClickLike(Long reviewId, User user, Optional<Like> findLike) { // 작성자가 아니라 좋아요 클릭이 가능할 때
+        Review review = reviewRepository.findById(reviewId).get();
+
+        if (findLike.isPresent()) { // 이미 좋아요를 눌렀을 경우 => 삭제
+            review.removeLike(findLike.get());
+        } else { // 좋아요를 누르지 않은 경우 => 추가
+            addLike(review, user);
+        }
+        reviewRepository.save(review);
     }
 
     public void addLike(Review review, User user) {
