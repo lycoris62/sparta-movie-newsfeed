@@ -11,11 +11,13 @@ import sparta.ifour.movietalk.domain.reviews.entity.Like;
 import sparta.ifour.movietalk.domain.reviews.entity.Review;
 import sparta.ifour.movietalk.domain.reviews.entity.ReviewHashtag;
 import sparta.ifour.movietalk.domain.reviews.repository.HashtagRepository;
+import sparta.ifour.movietalk.domain.reviews.repository.LikeRepository;
 import sparta.ifour.movietalk.domain.reviews.repository.ReviewHashTagRepository;
 import sparta.ifour.movietalk.domain.reviews.repository.ReviewRepository;
 import sparta.ifour.movietalk.domain.user.entity.User;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -24,6 +26,7 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final ReviewHashTagRepository reviewHashTagRepository;
     private final HashtagRepository hashtagRepository;
+    private final LikeRepository likeRepository;
 
     @Transactional
     public ReviewPreviewResponseDto createReview(ReviewRequestDto requestDto) { // 리뷰 생성
