@@ -2,6 +2,8 @@ package sparta.ifour.movietalk.domain.user.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -38,18 +40,23 @@ public class User extends BaseEntity {
 	@Column(length = 40) // null 가능, 40이하
 	private String description; // 한 줄 소개
 
-	private User(String loginId, String password, String nickname, String description) {
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
+	private UserRoleEnum role;
+
+	private User(String loginId, String password, String nickname, String description, UserRoleEnum role) {
 		this.loginId = loginId;
 		this.password = password;
 		this.nickname = nickname;
 		this.description = description;
+		this.role = role;
 	}
 
 	/**
 	 * 회원가입
 	 */
 	public static User create(UserSignupRequestDto requestDto) {
-		return new User(requestDto.getLoginId(), requestDto.getPassword(), requestDto.getNickname(), requestDto.getDescription());
+		return new User(requestDto.getLoginId(), requestDto.getPassword(), requestDto.getNickname(), requestDto.getDescription(), UserRoleEnum.USER);
 	}
 
 	/**
