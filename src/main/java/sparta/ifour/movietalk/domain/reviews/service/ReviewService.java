@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sparta.ifour.movietalk.domain.reviews.dto.request.ReviewRequestDto;
+import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewDetailResponseDto;
 import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewPreviewResponseDto;
-import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewResponseDto;
 import sparta.ifour.movietalk.domain.reviews.entity.Hashtag;
 import sparta.ifour.movietalk.domain.reviews.entity.Like;
 import sparta.ifour.movietalk.domain.reviews.entity.Review;
@@ -74,40 +74,40 @@ public class ReviewService {
         }
     }
 
-    public ReviewResponseDto getReview(Long reviewId) {
+    public ReviewDetailResponseDto getReview(Long reviewId) {
 
         Review review = getReviewById(reviewId);
 
-        return new ReviewResponseDto(review);
+        return new ReviewDetailResponseDto(review);
 
     }
 
-    public List<ReviewResponseDto> getReviewsAll() {
+    public List<ReviewPreviewResponseDto> getReviewsAll() {
 
         List<Review> reviewListAll = reviewRepository.findAll();
 
         return reviewListAll.stream()
-                .map(ReviewResponseDto::new)
+                .map(ReviewPreviewResponseDto::new)
                 .toList();
 
     }
 
-    public List<ReviewResponseDto> getReviewsBySearch(String queryname) {
+    public List<ReviewPreviewResponseDto> getReviewsBySearch(String queryname) {
 
         return reviewRepository.findAll()
                 .stream()
                 .filter(review -> doesReviewContain(queryname, review))
-                .map(ReviewResponseDto::new)
+                .map(ReviewPreviewResponseDto::new)
                 .toList();
 
     }
 
-    public List<ReviewResponseDto> getReviewsByTag(String hashtagName) {
+    public List<ReviewPreviewResponseDto> getReviewsByTag(String hashtagName) {
         Hashtag hashtag = getHashtagByname(hashtagName);
 
         return hashtag.getReviewHashtagList().stream()
                 .map(ReviewHashtag::getReview)
-                .map(ReviewResponseDto::new)
+                .map(ReviewPreviewResponseDto::new)
                 .toList();
     }
 
