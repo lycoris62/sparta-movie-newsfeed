@@ -13,6 +13,7 @@ import sparta.ifour.movietalk.domain.reviews.entity.ReviewHashtag;
 import sparta.ifour.movietalk.domain.reviews.repository.HashtagRepository;
 import sparta.ifour.movietalk.domain.reviews.repository.ReviewHashTagRepository;
 import sparta.ifour.movietalk.domain.reviews.repository.ReviewRepository;
+import sparta.ifour.movietalk.domain.user.entity.User;
 
 import java.util.List;
 
