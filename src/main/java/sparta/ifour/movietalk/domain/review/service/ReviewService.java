@@ -36,6 +36,7 @@ public class ReviewService {
 
     @Transactional
     public ReviewPreviewResponseDto createReview(ReviewRequestDto requestDto, User user) { // 리뷰 생성
+
         Review review = Review.builder()
                 .title(requestDto.getTitle())
                 .content(requestDto.getContent())
@@ -45,6 +46,23 @@ public class ReviewService {
                 .build();
 
         Review saveReview = reviewRepository.save(review);
+
+        // reviewHashTagRepository.save(reviewHashtag); 이것보다 먼저 와야한다.
+
+        List<Hashtag> HashtagList= requestDto.getTagList().stream()
+                .map(Hashtag::new).toList();
+
+        HashtagList.stream()
+                .filter(tag-> !hashtagRepository.existsByName(tag.getName()))
+                .forEach(hashtagRepository::save);
+
+        HashtagList
+                .forEach(tag -> {
+                    ReviewHashtag reviewHashtag = new ReviewHashtag(review, tag);
+                    reviewHashTagRepository.save(reviewHashtag);
+                });
+
+
 
         return new ReviewPreviewResponseDto(saveReview);
     }
