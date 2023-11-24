@@ -43,7 +43,7 @@ public class UserController {
 		@AuthenticationPrincipal UserDetailsImpl userDetails,
 		@Valid @RequestBody UserProfileUpdateRequestDto requestDto) {
 
-		userService.updateProfile(userDetails.getUser(), requestDto);
+		userService.updateProfile(userDetails.getUsername(), requestDto);
 
 		return ResponseEntity.ok().build();
 	}
