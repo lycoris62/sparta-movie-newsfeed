@@ -17,9 +17,12 @@ import sparta.ifour.movietalk.domain.review.repository.ReviewRepository;
 import sparta.ifour.movietalk.domain.user.entity.User;
 
 import org.springframework.security.access.AccessDeniedException;
-import sparta.ifour.movietalk.domain.user.repository.UserRepository;
 
+import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
+
+import sparta.ifour.movietalk.domain.user.repository.UserRepository;
 
 @RequiredArgsConstructor
 @Service
@@ -100,21 +103,18 @@ public class ReviewService {
 
     }
 
-    public List<ReviewPreviewResponseDto> getReviewsAll() {
+    public List<ReviewPreviewResponseDto> getReviewsAll(String sort) {
 
-        List<Review> reviewListAll = reviewRepository.findAll();
-
-        return reviewListAll.stream()
+        return getListAllByDate(sort).stream()
                 .map(ReviewPreviewResponseDto::new)
                 .toList();
 
     }
 
-    public List<ReviewPreviewResponseDto> getReviewsBySearch(String queryname) {
+    public List<ReviewPreviewResponseDto> getReviewsBySearch(String sort,String query) {
 
-        return reviewRepository.findAll()
-                .stream()
-                .filter(review -> doesReviewContain(queryname, review))
+        return getListAllByDate(sort).stream()
+                .filter(review -> doesReviewContain(query, review))
                 .map(ReviewPreviewResponseDto::new)
                 .toList();
 
@@ -129,6 +129,46 @@ public class ReviewService {
                 .toList();
     }
 
+    private  List<Review> getListAllByDate(String sort){
+        LocalDate current = LocalDate.now();
+        if(sort.equals("recent")) {
+
+            return reviewRepository.findAllByOrderByCreatedAtDesc();
+        }
+
+        else if(sort.equals("liketoday")){
+
+            List<Review> reviewListAllRecent = reviewRepository.findAllByCreatedAtAfterOrderByCreatedAtDesc(current);
+
+            return reviewListAllRecent;
+
+        }
+
+        else if(sort.equals("likeWeek")){
+            LocalDate oneWeek = current.minusWeeks(1);
+
+            return reviewRepository.findAllByCreatedAtAfterOrderByCreatedAtDesc(oneWeek);
+        }
+
+        else if(sort.equals("likeMonth")){
+            LocalDate oneMonth = current.minusMonths(1);
+
+            return reviewRepository.findAllByCreatedAtAfterOrderByCreatedAtDesc(oneMonth);
+        }
+        else if(sort.equals("likeYear")){
+            LocalDate oneYear = current.minusYears(1);
+
+            return reviewRepository.findAllByCreatedAtAfterOrderByCreatedAtDesc(oneYear);
+        }
+
+        else{
+            System.out.println("잘못된입력입니다."); // 나중에 예외처리 만들면 처리해줌
+            return Collections.emptyList();
+        }
+
+
+    }
+  
     private Hashtag getHashtagByname(String name) {
 
         return hashtagRepository.findByName(name)
