@@ -1,5 +1,6 @@
 package sparta.ifour.movietalk.domain.user.service;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +20,7 @@ import sparta.ifour.movietalk.domain.user.repository.UserRepository;
 public class UserService {
 
 	private final UserRepository userRepository;
+	private final PasswordEncoder passwordEncoder;
 
 	/**
 	 * 프로필 조회
@@ -44,12 +46,20 @@ public class UserService {
 	 * 비밀번호 수정
 	 */
 	@Transactional
-	public void updatePassword(User user, UserPasswordUpdateRequestDto request) {
+	public void updatePassword(String nickname, UserPasswordUpdateRequestDto request) {
 
-		if (!user.getPassword().equals(request.getOldPassword())) {
+		User user = userRepository.findByNickname(nickname)
+			.orElseThrow(IllegalArgumentException::new);
+
+		String encodedPassword = passwordEncoder.encode(request.getNewPassword());
+		validatePassword(request.getOldPassword(), user.getPassword());
+
+		user.updatePassword(encodedPassword);
+	}
+
+	private void validatePassword(String rawPassword, String userPassword) {
+		if (!passwordEncoder.matches(rawPassword, userPassword)) {
 			throw new IllegalArgumentException("잘못된 비밀번호");
 		}
-
-		user.updatePassword(request.getNewPassword());
 	}
 }
