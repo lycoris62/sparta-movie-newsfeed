@@ -1,5 +1,7 @@
 package sparta.ifour.movietalk.domain.review.service;
 
+import java.util.List;
+
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -7,9 +9,13 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import sparta.ifour.movietalk.domain.review.dto.request.ReviewRequestDto;
 import sparta.ifour.movietalk.domain.review.dto.response.ReviewPreviewResponseDto;
+import sparta.ifour.movietalk.domain.review.entity.Hashtag;
 import sparta.ifour.movietalk.domain.review.entity.Like;
 import sparta.ifour.movietalk.domain.review.entity.Review;
+import sparta.ifour.movietalk.domain.review.entity.ReviewHashtag;
+import sparta.ifour.movietalk.domain.review.repository.HashtagRepository;
 import sparta.ifour.movietalk.domain.review.repository.LikeRepository;
+import sparta.ifour.movietalk.domain.review.repository.ReviewHashTagRepository;
 import sparta.ifour.movietalk.domain.review.repository.ReviewRepository;
 import sparta.ifour.movietalk.domain.user.entity.User;
 
@@ -20,6 +26,8 @@ public class ReviewCommandService {
 
 	private final ReviewRepository reviewRepository;
 	private final LikeRepository likeRepository;
+	private final HashtagRepository hashtagRepository;
+	private final ReviewHashTagRepository reviewHashTagRepository;
 
 	public ReviewPreviewResponseDto createReview(ReviewRequestDto requestDto, User user) { // 리뷰 생성
 		Review review = Review.builder()
@@ -31,6 +39,23 @@ public class ReviewCommandService {
 			.build();
 
 		Review saveReview = reviewRepository.save(review);
+
+		// reviewHashTagRepository.save(reviewHashtag); 이것보다 먼저 와야한다.
+
+		List<Hashtag> HashtagList= requestDto.getTagList().stream()
+			.map(Hashtag::new).toList();
+
+		HashtagList.stream()
+			.filter(tag-> !hashtagRepository.existsByName(tag.getName()))
+			.forEach(hashtagRepository::save);
+
+		HashtagList
+			.forEach(tag -> {
+				ReviewHashtag reviewHashtag = new ReviewHashtag(review, tag);
+				reviewHashTagRepository.save(reviewHashtag);
+			});
+
+
 
 		return new ReviewPreviewResponseDto(saveReview);
 	}
