@@ -1,54 +1,50 @@
 package sparta.ifour.movietalk.domain.review.controller;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import sparta.ifour.movietalk.domain.review.dto.response.ReviewDetailResponseDto;
-import sparta.ifour.movietalk.domain.review.dto.response.ReviewPreviewResponseDto;
-import sparta.ifour.movietalk.domain.review.service.ReviewService;
-
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import lombok.RequiredArgsConstructor;
+import sparta.ifour.movietalk.domain.review.dto.response.ReviewDetailResponseDto;
+import sparta.ifour.movietalk.domain.review.dto.response.ReviewPreviewResponseDto;
+import sparta.ifour.movietalk.domain.review.service.ReviewQueryService;
+
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/reviews")
 @RequiredArgsConstructor
 public class ReviewQueryController {
 
-    private final ReviewService reviewService;
+    private final ReviewQueryService reviewQueryService;
 
-    @GetMapping("/reviews") //리뷰 전체 목록 조회
-    public ResponseEntity<List<ReviewPreviewResponseDto>> getAllReviews(
-            @RequestParam(name = "sort") String sort) {
-        List<ReviewPreviewResponseDto> reviewListAll = reviewService.getReviewsAll(sort);
+    /**
+     * 리뷰 다건 조회
+     * @param sort 정렬 순서, 필수값
+     * qeury와 hashtag는 둘 다 없거나(전체 조회) 둘 중 하나만 있어야 한다.
+     * @param query 검색어
+     * @param hashtag 해시태그
+     */
+    @GetMapping("")
+    public ResponseEntity<List<ReviewPreviewResponseDto>> getReviews(
+        @RequestParam String sort,
+        @RequestParam(required = false) String query,
+        @RequestParam(required = false) String hashtag) {
 
-        return ResponseEntity.ok(reviewListAll);
+        List<ReviewPreviewResponseDto> reviews = reviewQueryService.getReviews(sort, query, hashtag);
+
+        return ResponseEntity.ok(reviews);
     }
 
-    @GetMapping("/reviews/{reviewId}") // 특정 리뷰 상세조회
+    /**
+     * 리뷰 단건 조회
+     */
+    @GetMapping("/{reviewId}") // 특정 리뷰 상세조회
     public ResponseEntity<ReviewDetailResponseDto> getReview(@PathVariable Long reviewId){
-        ReviewDetailResponseDto reviewResponseDto = reviewService.getReview(reviewId);
+        ReviewDetailResponseDto reviewResponseDto = reviewQueryService.getReview(reviewId);
         return ResponseEntity.ok(reviewResponseDto);
     }
-
-    @GetMapping("/reviews/query/{queryName}") //리뷰 검색 목록 조회
-    public ResponseEntity<List<ReviewPreviewResponseDto>> getReviewsBySearch(
-            @RequestParam(name = "sort") String sort,
-            @RequestParam(name = "query") String query)
-    {
-
-        List<ReviewPreviewResponseDto> reviewListBySearch = reviewService.getReviewsBySearch(sort,query);
-
-        return ResponseEntity.ok(reviewListBySearch);
-    }
-
-    @GetMapping("reviews/hashtag/{hashtagName}") // 특정 해시태그가 포함된 리뷰 조회
-    public ResponseEntity<List<ReviewPreviewResponseDto>> getReviewsByHashTag(@PathVariable String hashtagName){
-
-        List<ReviewPreviewResponseDto> reviewListByTag = reviewService.getReviewsByTag(hashtagName);
-
-        return ResponseEntity.ok(reviewListByTag);
-
-    }
-
-
 }
