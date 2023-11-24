@@ -52,6 +52,7 @@ public class WebSecurityConfig {
 		http.authorizeHttpRequests(authz -> authz
 			.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
 			// 유저 도메인
+			.requestMatchers(HttpMethod.GET, "/api/users/{nickname}").permitAll()
 			.requestMatchers(HttpMethod.PATCH, "/api/users/profile", "/api/users/password").authenticated()
 			.requestMatchers("/api/users/**").permitAll()
 			// 댓글 도메인
