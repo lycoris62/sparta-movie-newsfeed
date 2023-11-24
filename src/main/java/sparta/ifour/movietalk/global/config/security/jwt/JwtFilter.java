@@ -3,12 +3,15 @@ package sparta.ifour.movietalk.global.config.security.jwt;
 import java.io.IOException;
 import java.util.List;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -29,11 +32,18 @@ public class JwtFilter extends OncePerRequestFilter {
 
 	private final JwtUtil jwtUtil;
 	private final UserDetailsService userDetailsService;
+	private static final RequestMatcher userIgnoredPath = new AntPathRequestMatcher("/api/users/{nickname}", HttpMethod.GET.name());
+	private static final RequestMatcher reviewIgnoredPath = new AntPathRequestMatcher("/api/reviews/**", HttpMethod.GET.name());
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws
 		ServletException,
 		IOException {
+
+		if (userIgnoredPath.matches(request) || reviewIgnoredPath.matches(request)) {
+			filterChain.doFilter(request, response);
+			return;
+		}
 
 		String tokenValue = request.getHeader(JwtUtil.AUTHORIZATION_HEADER); // 헤더에서 JWT 가져오기
 		log.info("tokenValue : {}", tokenValue);
