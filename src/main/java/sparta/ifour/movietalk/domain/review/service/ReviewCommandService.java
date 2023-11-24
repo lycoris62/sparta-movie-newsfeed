@@ -1,12 +1,10 @@
 package sparta.ifour.movietalk.domain.review.service;
 
 import java.util.List;
-
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import lombok.RequiredArgsConstructor;
 import sparta.ifour.movietalk.domain.review.dto.request.ReviewRequestDto;
 import sparta.ifour.movietalk.domain.review.dto.response.ReviewPreviewResponseDto;
 import sparta.ifour.movietalk.domain.review.entity.Hashtag;
