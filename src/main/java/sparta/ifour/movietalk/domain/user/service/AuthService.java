@@ -1,5 +1,6 @@
 package sparta.ifour.movietalk.domain.user.service;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,7 @@ import sparta.ifour.movietalk.global.config.security.jwt.JwtUtil;
 public class AuthService {
 
 	private final JwtUtil jwtUtil;
+	private final PasswordEncoder passwordEncoder;
 	private final UserRepository userRepository;
 
 	/**
@@ -30,6 +32,8 @@ public class AuthService {
 	public void signup(UserSignupRequestDto requestDto) {
 
 		validateDuplicateId(requestDto);
+
+		requestDto.setPassword(passwordEncoder.encode(requestDto.getPassword()));
 		User user = User.create(requestDto);
 
 		userRepository.save(user);
@@ -56,7 +60,7 @@ public class AuthService {
 	}
 
 	private void validatePassword(String rawPassword, String userPassword) {
-		if (!userPassword.equals(rawPassword)) {
+		if (!passwordEncoder.matches(rawPassword, userPassword)) {
 			throw new IllegalArgumentException("잘못된 비밀번호");
 		}
 	}
