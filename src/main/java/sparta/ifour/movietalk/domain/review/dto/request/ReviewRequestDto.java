@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 
+import java.util.List;
+
 @Getter
 public class ReviewRequestDto {
     @Size(min = 1, max = 50)
@@ -24,4 +26,6 @@ public class ReviewRequestDto {
     @Size(max = 100)
     @NotBlank
     private String movieName;
+
+    private List<String> tagList;
 }
