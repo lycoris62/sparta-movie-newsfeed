@@ -2,10 +2,7 @@ package sparta.ifour.movietalk.domain.reviews.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewDetailResponseDto;
 import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewPreviewResponseDto;
 import sparta.ifour.movietalk.domain.reviews.service.ReviewService;
@@ -20,8 +17,9 @@ public class ReviewQueryController {
     private final ReviewService reviewService;
 
     @GetMapping("/reviews") //리뷰 전체 목록 조회
-    public ResponseEntity<List<ReviewPreviewResponseDto>> getAllReviews(){
-        List<ReviewPreviewResponseDto> reviewListAll = reviewService.getReviewsAll();
+    public ResponseEntity<List<ReviewPreviewResponseDto>> getAllReviews(
+            @RequestParam(name = "sort") String sort) {
+        List<ReviewPreviewResponseDto> reviewListAll = reviewService.getReviewsAll(sort);
         return ResponseEntity.ok(reviewListAll);
     }
 
