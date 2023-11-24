@@ -1,18 +1,17 @@
 package sparta.ifour.movietalk.domain.review.service;
 
-import static java.util.stream.Collectors.*;
+import static java.util.stream.Collectors.counting;
+import static java.util.stream.Collectors.groupingBy;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sparta.ifour.movietalk.domain.review.dto.response.ReviewDetailResponseDto;
 import sparta.ifour.movietalk.domain.review.dto.response.ReviewPreviewResponseDto;
 import sparta.ifour.movietalk.domain.review.entity.Like;
@@ -20,6 +19,7 @@ import sparta.ifour.movietalk.domain.review.entity.Review;
 import sparta.ifour.movietalk.domain.review.enums.ReviewSort;
 import sparta.ifour.movietalk.domain.review.repository.LikeRepository;
 import sparta.ifour.movietalk.domain.review.repository.ReviewRepository;
+import sparta.ifour.movietalk.global.exception.NotFoundException;
 
 @Slf4j
 @Service
@@ -38,7 +38,7 @@ public class ReviewQueryService {
 
 	private Review getReviewById(Long id) {
 		return reviewRepository.findById(id)
-			.orElseThrow(() -> new IllegalArgumentException("해당 리뷰글을 찾을 수 없습니다."));
+			.orElseThrow(() -> new NotFoundException());
 	}
 
 	public List<ReviewPreviewResponseDto> getReviews(String sort, String query, String hashtag) {
