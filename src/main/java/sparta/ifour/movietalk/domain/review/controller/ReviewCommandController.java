@@ -1,5 +1,6 @@
 package sparta.ifour.movietalk.domain.review.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,7 +29,7 @@ public class ReviewCommandController {
 
     @PostMapping
     public ResponseEntity<ReviewPreviewResponseDto> createReview(
-            @RequestBody ReviewRequestDto requestDto,
+            @Valid @RequestBody ReviewRequestDto requestDto,
             @AuthenticationPrincipal UserDetailsImpl userDetails) { // 리뷰 생성
 
         ReviewPreviewResponseDto previewResponseDto = reviewCommandService.createReview(requestDto, userDetails.getUser());
@@ -38,7 +39,7 @@ public class ReviewCommandController {
 
     @PatchMapping("/{reviewId}")
     public ResponseEntity<?> updateReview(
-            @RequestBody ReviewRequestDto requestDto,
+            @Valid @RequestBody ReviewRequestDto requestDto,
             @PathVariable Long reviewId,
             @AuthenticationPrincipal UserDetailsImpl userDetails) { // 리뷰 수정
 

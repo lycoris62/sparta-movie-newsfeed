@@ -12,9 +12,12 @@ import lombok.Setter;
 @Setter
 public class UserPasswordUpdateRequestDto {
 
-	@Pattern(regexp = "^[a-zA-Z0-9!@#$]{8,20}$") // a ~ z, A ~ Z, 0 ~ 9, !@#$ 만 포함, 8이상 20이하
+	@Pattern(
+			regexp = "^[a-zA-Z0-9!@#$]{8,20}$",
+			message = "비밀번호는 a ~ z, A ~ Z, 0 ~ 9, !@#$ 만 포함, 8이상 20이하") // a ~ z, A ~ Z, 0 ~ 9, !@#$ 만 포함, 8이상 20이하
 	private String oldPassword;
 
-	@Pattern(regexp = "^[a-zA-Z0-9!@#$]{8,20}$") // a ~ z, A ~ Z, 0 ~ 9, !@#$ 만 포함, 8이상 20이하
+	@Pattern(regexp = "^[a-zA-Z0-9!@#$]{8,20}$",
+			message = "비밀번호는 a ~ z, A ~ Z, 0 ~ 9, !@#$ 만 포함, 8이상 20이하") // a ~ z, A ~ Z, 0 ~ 9, !@#$ 만 포함, 8이상 20이하
 	private String newPassword;
 }
