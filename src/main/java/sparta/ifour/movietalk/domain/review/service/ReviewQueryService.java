@@ -20,6 +20,7 @@ import sparta.ifour.movietalk.domain.review.entity.Review;
 import sparta.ifour.movietalk.domain.review.enums.ReviewSort;
 import sparta.ifour.movietalk.domain.review.repository.LikeRepository;
 import sparta.ifour.movietalk.domain.review.repository.ReviewRepository;
+import sparta.ifour.movietalk.global.exception.NotFoundException;
 
 @Slf4j
 @Service
@@ -38,7 +39,7 @@ public class ReviewQueryService {
 
 	private Review getReviewById(Long id) {
 		return reviewRepository.findById(id)
-			.orElseThrow(() -> new IllegalArgumentException("해당 리뷰글을 찾을 수 없습니다."));
+			.orElseThrow(() -> new NotFoundException());
 	}
 
 	public List<ReviewPreviewResponseDto> getReviews(String sort, String query, String hashtag) {
