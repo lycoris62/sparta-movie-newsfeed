@@ -49,11 +49,11 @@ public class ReviewCommandController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/{reviewId}/like")
+    @PatchMapping("/{reviewId}/like")
     public ResponseEntity<?> clickLike(
             @PathVariable Long reviewId,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        
+
         reviewService.clickLike(reviewId, userDetails.getUser());
 
         return ResponseEntity.ok().build();

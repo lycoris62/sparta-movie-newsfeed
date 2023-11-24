@@ -20,6 +20,7 @@ public class ReviewQueryController {
     public ResponseEntity<List<ReviewPreviewResponseDto>> getAllReviews(
             @RequestParam(name = "sort") String sort) {
         List<ReviewPreviewResponseDto> reviewListAll = reviewService.getReviewsAll(sort);
+
         return ResponseEntity.ok(reviewListAll);
     }
 

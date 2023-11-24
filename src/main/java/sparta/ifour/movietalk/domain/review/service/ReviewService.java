@@ -22,6 +22,8 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
+import sparta.ifour.movietalk.domain.user.repository.UserRepository;
+
 @RequiredArgsConstructor
 @Service
 public class ReviewService {
@@ -30,6 +32,7 @@ public class ReviewService {
     private final ReviewHashTagRepository reviewHashTagRepository;
     private final HashtagRepository hashtagRepository;
     private final LikeRepository likeRepository;
+    private final UserRepository userRepository;
 
     @Transactional
     public ReviewPreviewResponseDto createReview(ReviewRequestDto requestDto, User user) { // 리뷰 생성
@@ -73,10 +76,17 @@ public class ReviewService {
         validateAuthorClick(user, review); // 좋아요를 누른사람이 작성자인지 확인
 
         likeRepository.findByReviewIdAndUserId(reviewId, user.getId())
-                        .ifPresentOrElse(
-                                (like) -> review.removeLike(like), // 이미 좋아요 눌렀을 경우
-                                () -> review.addLike(new Like(user, review)) // 좋아요를 누르지 않은 경우
-                        );
+                .ifPresentOrElse(
+                        (like) -> {
+                            review.removeLike(like);
+                            likeRepository.delete(like);
+                        }, // 이미 좋아요 눌렀을 경우
+                        () -> {
+                            Like like = new Like(user, review);
+                            review.addLike(like); // 좋아요를 누르지 않은 경우
+                            likeRepository.save(like);
+                        }
+                );
     }
 
     private void validateAuthorClick(User user, Review review) {
@@ -93,7 +103,6 @@ public class ReviewService {
 
     }
 
-
     public List<ReviewPreviewResponseDto> getReviewsAll(String sort) {
 
         return getListAllByDate(sort).stream()
@@ -101,7 +110,6 @@ public class ReviewService {
                 .toList();
 
     }
-
 
     public List<ReviewPreviewResponseDto> getReviewsBySearch(String sort,String query) {
 
@@ -160,7 +168,7 @@ public class ReviewService {
 
 
     }
-
+  
     private Hashtag getHashtagByname(String name) {
 
         return hashtagRepository.findByName(name)

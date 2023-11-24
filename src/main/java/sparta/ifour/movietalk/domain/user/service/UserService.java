@@ -37,9 +37,18 @@ public class UserService {
 	 * 프로필 수정
 	 */
 	@Transactional
-	public void updateProfile(User user, UserProfileUpdateRequestDto request) {
+	public void updateProfile(String nickname, UserProfileUpdateRequestDto request) {
 
+		validateDuplicateNickname(request.getNickname());
+
+		User user = getValidUser(nickname);
 		user.updateProfile(request);
+	}
+
+	private void validateDuplicateNickname(String nickname) {
+		if (userRepository.existsByNickname(nickname)) {
+			throw new IllegalArgumentException("이미 있는 닉네임");
+		}
 	}
 
 	/**
@@ -48,13 +57,16 @@ public class UserService {
 	@Transactional
 	public void updatePassword(String nickname, UserPasswordUpdateRequestDto request) {
 
-		User user = userRepository.findByNickname(nickname)
-			.orElseThrow(IllegalArgumentException::new);
-
-		String encodedPassword = passwordEncoder.encode(request.getNewPassword());
+		User user = getValidUser(nickname);
 		validatePassword(request.getOldPassword(), user.getPassword());
 
+		String encodedPassword = passwordEncoder.encode(request.getNewPassword());
 		user.updatePassword(encodedPassword);
+	}
+
+	private User getValidUser(String nickname) {
+		return userRepository.findByNickname(nickname)
+			.orElseThrow(() -> new IllegalArgumentException("잘못된 닉네임"));
 	}
 
 	private void validatePassword(String rawPassword, String userPassword) {

@@ -6,7 +6,6 @@ import sparta.ifour.movietalk.domain.review.entity.Review;
 import java.time.LocalDate;
 import java.util.List;
 
-
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     List<Review> findAllByOrderByCreatedAtDesc();
