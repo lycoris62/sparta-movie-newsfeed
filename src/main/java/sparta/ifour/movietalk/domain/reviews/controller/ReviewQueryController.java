@@ -30,9 +30,12 @@ public class ReviewQueryController {
     }
 
     @GetMapping("/reviews/query/{queryName}") //리뷰 검색 목록 조회
-    public ResponseEntity<List<ReviewPreviewResponseDto>> getReviewsBySearch(@PathVariable String queryName){
+    public ResponseEntity<List<ReviewPreviewResponseDto>> getReviewsBySearch(
+            @RequestParam(name = "sort") String sort,
+            @RequestParam(name = "query") String query)
+    {
 
-        List<ReviewPreviewResponseDto> reviewListBySearch = reviewService.getReviewsBySearch(queryName);
+        List<ReviewPreviewResponseDto> reviewListBySearch = reviewService.getReviewsBySearch(sort,query);
 
         return ResponseEntity.ok(reviewListBySearch);
     }
