@@ -1,10 +1,7 @@
-package sparta.ifour.movietalk.domain.reviews.entity;
+package sparta.ifour.movietalk.domain.review.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

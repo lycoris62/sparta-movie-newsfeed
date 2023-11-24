@@ -1,4 +1,4 @@
-package sparta.ifour.movietalk.domain.reviews.dto.request;
+package sparta.ifour.movietalk.domain.review.dto.request;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

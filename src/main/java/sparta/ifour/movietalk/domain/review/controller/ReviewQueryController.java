@@ -1,4 +1,4 @@
-package sparta.ifour.movietalk.domain.reviews.controller;
+package sparta.ifour.movietalk.domain.review.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewDetailResponseDto;
-import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewPreviewResponseDto;
-import sparta.ifour.movietalk.domain.reviews.service.ReviewService;
+import sparta.ifour.movietalk.domain.review.dto.response.ReviewDetailResponseDto;
+import sparta.ifour.movietalk.domain.review.dto.response.ReviewPreviewResponseDto;
+import sparta.ifour.movietalk.domain.review.service.ReviewService;
 
 import java.util.List;
 
