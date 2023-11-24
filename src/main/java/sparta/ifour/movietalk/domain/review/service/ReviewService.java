@@ -1,19 +1,19 @@
-package sparta.ifour.movietalk.domain.reviews.service;
+package sparta.ifour.movietalk.domain.review.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sparta.ifour.movietalk.domain.reviews.dto.request.ReviewRequestDto;
-import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewDetailResponseDto;
-import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewPreviewResponseDto;
-import sparta.ifour.movietalk.domain.reviews.entity.Hashtag;
-import sparta.ifour.movietalk.domain.reviews.entity.Like;
-import sparta.ifour.movietalk.domain.reviews.entity.Review;
-import sparta.ifour.movietalk.domain.reviews.entity.ReviewHashtag;
-import sparta.ifour.movietalk.domain.reviews.repository.HashtagRepository;
-import sparta.ifour.movietalk.domain.reviews.repository.LikeRepository;
-import sparta.ifour.movietalk.domain.reviews.repository.ReviewHashTagRepository;
-import sparta.ifour.movietalk.domain.reviews.repository.ReviewRepository;
+import sparta.ifour.movietalk.domain.review.dto.request.ReviewRequestDto;
+import sparta.ifour.movietalk.domain.review.dto.response.ReviewDetailResponseDto;
+import sparta.ifour.movietalk.domain.review.dto.response.ReviewPreviewResponseDto;
+import sparta.ifour.movietalk.domain.review.entity.Hashtag;
+import sparta.ifour.movietalk.domain.review.entity.Like;
+import sparta.ifour.movietalk.domain.review.entity.Review;
+import sparta.ifour.movietalk.domain.review.entity.ReviewHashtag;
+import sparta.ifour.movietalk.domain.review.repository.HashtagRepository;
+import sparta.ifour.movietalk.domain.review.repository.LikeRepository;
+import sparta.ifour.movietalk.domain.review.repository.ReviewHashTagRepository;
+import sparta.ifour.movietalk.domain.review.repository.ReviewRepository;
 import sparta.ifour.movietalk.domain.user.entity.User;
 
 import org.springframework.security.access.AccessDeniedException;

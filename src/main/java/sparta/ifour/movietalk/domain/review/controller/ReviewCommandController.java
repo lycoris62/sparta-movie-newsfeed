@@ -1,12 +1,12 @@
-package sparta.ifour.movietalk.domain.reviews.controller;
+package sparta.ifour.movietalk.domain.review.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import sparta.ifour.movietalk.domain.reviews.dto.request.ReviewRequestDto;
-import sparta.ifour.movietalk.domain.reviews.dto.response.ReviewPreviewResponseDto;
-import sparta.ifour.movietalk.domain.reviews.service.ReviewService;
+import sparta.ifour.movietalk.domain.review.dto.request.ReviewRequestDto;
+import sparta.ifour.movietalk.domain.review.dto.response.ReviewPreviewResponseDto;
+import sparta.ifour.movietalk.domain.review.service.ReviewService;
 import sparta.ifour.movietalk.global.config.security.UserDetailsImpl;
 
 /**

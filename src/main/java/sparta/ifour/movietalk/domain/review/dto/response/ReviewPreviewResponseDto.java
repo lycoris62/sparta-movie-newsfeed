@@ -1,8 +1,8 @@
-package sparta.ifour.movietalk.domain.reviews.dto.response;
+package sparta.ifour.movietalk.domain.review.dto.response;
 
 import lombok.Getter;
-import sparta.ifour.movietalk.domain.reviews.entity.Review;
-import sparta.ifour.movietalk.domain.reviews.entity.ReviewHashtag;
+import sparta.ifour.movietalk.domain.review.entity.Review;
+import sparta.ifour.movietalk.domain.review.entity.ReviewHashtag;
 
 import java.time.LocalDateTime;
 import java.util.List;

@@ -1,7 +1,7 @@
-package sparta.ifour.movietalk.domain.reviews.repository;
+package sparta.ifour.movietalk.domain.review.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import sparta.ifour.movietalk.domain.reviews.entity.Review;
+import sparta.ifour.movietalk.domain.review.entity.Review;
 
 import java.time.LocalDate;
 import java.util.List;

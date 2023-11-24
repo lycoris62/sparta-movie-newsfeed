@@ -1,4 +1,4 @@
-package sparta.ifour.movietalk.domain.reviews.entity;
+package sparta.ifour.movietalk.domain.review.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
