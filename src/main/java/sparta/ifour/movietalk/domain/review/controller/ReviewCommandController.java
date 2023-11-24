@@ -1,12 +1,19 @@
 package sparta.ifour.movietalk.domain.review.controller;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import lombok.RequiredArgsConstructor;
 import sparta.ifour.movietalk.domain.review.dto.request.ReviewRequestDto;
 import sparta.ifour.movietalk.domain.review.dto.response.ReviewPreviewResponseDto;
-import sparta.ifour.movietalk.domain.review.service.ReviewService;
+import sparta.ifour.movietalk.domain.review.service.ReviewCommandService;
 import sparta.ifour.movietalk.global.config.security.UserDetailsImpl;
 
 /**
@@ -16,14 +23,15 @@ import sparta.ifour.movietalk.global.config.security.UserDetailsImpl;
 @RequestMapping("/api/reviews")
 @RequiredArgsConstructor
 public class ReviewCommandController {
-    private final ReviewService reviewService;
+
+    private final ReviewCommandService reviewCommandService;
 
     @PostMapping
     public ResponseEntity<ReviewPreviewResponseDto> createReview(
             @RequestBody ReviewRequestDto requestDto,
             @AuthenticationPrincipal UserDetailsImpl userDetails) { // 리뷰 생성
 
-        ReviewPreviewResponseDto previewResponseDto = reviewService.createReview(requestDto, userDetails.getUser());
+        ReviewPreviewResponseDto previewResponseDto = reviewCommandService.createReview(requestDto, userDetails.getUser());
 
         return ResponseEntity.ok(previewResponseDto);
     }
@@ -34,7 +42,7 @@ public class ReviewCommandController {
             @PathVariable Long reviewId,
             @AuthenticationPrincipal UserDetailsImpl userDetails) { // 리뷰 수정
 
-        reviewService.updateReview(requestDto, reviewId, userDetails.getUser());
+        reviewCommandService.updateReview(requestDto, reviewId, userDetails.getUser());
 
         return ResponseEntity.ok().build();
     }
@@ -44,7 +52,7 @@ public class ReviewCommandController {
             @PathVariable Long reviewId,
             @AuthenticationPrincipal UserDetailsImpl userDetails) { // 리뷰 삭제
 
-        reviewService.deleteReview(reviewId, userDetails.getUser());
+        reviewCommandService.deleteReview(reviewId, userDetails.getUser());
 
         return ResponseEntity.ok().build();
     }
@@ -54,7 +62,7 @@ public class ReviewCommandController {
             @PathVariable Long reviewId,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
-        reviewService.clickLike(reviewId, userDetails.getUser());
+        reviewCommandService.clickLike(reviewId, userDetails.getUser());
 
         return ResponseEntity.ok().build();
     }
