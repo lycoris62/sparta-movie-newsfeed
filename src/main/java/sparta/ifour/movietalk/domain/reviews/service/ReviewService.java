@@ -103,11 +103,10 @@ public class ReviewService {
     }
 
 
-    public List<ReviewPreviewResponseDto> getReviewsBySearch(String queryname, String query) {
+    public List<ReviewPreviewResponseDto> getReviewsBySearch(String sort,String query) {
 
-        return reviewRepository.findAll()
-                .stream()
-                .filter(review -> doesReviewContain(queryname, review))
+        return getListAllByDate(sort).stream()
+                .filter(review -> doesReviewContain(query, review))
                 .map(ReviewPreviewResponseDto::new)
                 .toList();
 
