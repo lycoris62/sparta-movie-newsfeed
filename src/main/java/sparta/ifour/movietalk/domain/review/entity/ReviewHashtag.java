@@ -1,11 +1,10 @@
-package sparta.ifour.movietalk.domain.reviews.entity;
+package sparta.ifour.movietalk.domain.review.entity;
 
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Getter

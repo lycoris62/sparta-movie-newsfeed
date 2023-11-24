@@ -5,7 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sparta.ifour.movietalk.domain.model.BaseEntity;
-import sparta.ifour.movietalk.domain.reviews.entity.Review;
+import sparta.ifour.movietalk.domain.review.entity.Review;
 import sparta.ifour.movietalk.domain.user.entity.User;
 
 @Entity(name = "comments")

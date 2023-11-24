@@ -8,8 +8,8 @@ import sparta.ifour.movietalk.domain.comment.dto.request.CommentUpdateRequestDto
 import sparta.ifour.movietalk.domain.comment.dto.response.CommentCreateResponseDto;
 import sparta.ifour.movietalk.domain.comment.entity.Comment;
 import sparta.ifour.movietalk.domain.comment.repository.CommentRepository;
-import sparta.ifour.movietalk.domain.reviews.entity.Review;
-import sparta.ifour.movietalk.domain.reviews.repository.ReviewRepository;
+import sparta.ifour.movietalk.domain.review.entity.Review;
+import sparta.ifour.movietalk.domain.review.repository.ReviewRepository;
 import sparta.ifour.movietalk.domain.user.entity.User;
 
 import java.util.concurrent.RejectedExecutionException;

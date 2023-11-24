@@ -1,4 +1,4 @@
-package sparta.ifour.movietalk.domain.reviews.entity;
+package sparta.ifour.movietalk.domain.review.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import sparta.ifour.movietalk.domain.comment.entity.Comment;
 import sparta.ifour.movietalk.domain.model.BaseEntity;
-import sparta.ifour.movietalk.domain.reviews.repository.LikeRepository;
 import sparta.ifour.movietalk.domain.user.entity.User;
 
 import java.util.ArrayList;
