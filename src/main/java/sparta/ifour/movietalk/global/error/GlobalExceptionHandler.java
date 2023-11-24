@@ -1,6 +1,4 @@
-package sparta.ifour.movietalk.global.config.security.error;
-
-import static sparta.ifour.movietalk.global.config.security.error.ErrorCode.NOT_FOUND;
+package sparta.ifour.movietalk.global.error;
 
 import java.util.ArrayList;
 import org.springframework.http.HttpStatus;
@@ -8,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import sparta.ifour.movietalk.global.config.security.exception.NotFoundException;
+import sparta.ifour.movietalk.global.exception.NotFoundException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -23,8 +21,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(NotFoundException.class)
     protected ResponseEntity<ErrorResponse> handleNotFoundException(NotFoundException e) {
-        ErrorResponse response = new ErrorResponse(NOT_FOUND.getMessage());
-        return new ResponseEntity<>(response, NOT_FOUND.getHttpStatus());
+        ErrorResponse response = new ErrorResponse(ErrorCode.NOT_FOUND.getMessage());
+        return new ResponseEntity<>(response, ErrorCode.NOT_FOUND.getHttpStatus());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

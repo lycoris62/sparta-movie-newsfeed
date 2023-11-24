@@ -1,4 +1,4 @@
-package sparta.ifour.movietalk.global.config.security.error;
+package sparta.ifour.movietalk.global.error;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
