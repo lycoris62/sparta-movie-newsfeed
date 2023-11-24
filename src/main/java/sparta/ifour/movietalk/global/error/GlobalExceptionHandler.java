@@ -3,6 +3,7 @@ package sparta.ifour.movietalk.global.error;
 import java.util.ArrayList;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -40,6 +41,12 @@ public class GlobalExceptionHandler {
     protected ResponseEntity<ErrorResponse> handleInvalidAccessException(InvalidAccessException e) {
         ErrorResponse response = new ErrorResponse(ErrorCode.INVALID_ACCESS.getMessage());
         return new ResponseEntity<>(response, ErrorCode.INVALID_ACCESS.getHttpStatus());
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    protected ResponseEntity<ErrorResponse> handleAccessDeniedException(AccessDeniedException e) {
+        ErrorResponse response = new ErrorResponse(e.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
 }
