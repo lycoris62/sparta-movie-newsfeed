@@ -18,6 +18,8 @@ import sparta.ifour.movietalk.domain.review.repository.LikeRepository;
 import sparta.ifour.movietalk.domain.review.repository.ReviewHashTagRepository;
 import sparta.ifour.movietalk.domain.review.repository.ReviewRepository;
 import sparta.ifour.movietalk.domain.user.entity.User;
+import sparta.ifour.movietalk.global.exception.InvalidAccessException;
+import sparta.ifour.movietalk.global.exception.NotFoundException;
 
 @Service
 @Transactional
@@ -76,7 +78,7 @@ public class ReviewCommandService {
 
 	private void validateAuthor(Review review, User user) {
 		if (!user.getLoginId().equals(review.getUser().getLoginId()))
-			throw new AccessDeniedException("다른 사용자가 작성한 리뷰는 수정할 수 없습니다.");
+			throw new InvalidAccessException();
 	}
 
 	public void clickLike(Long reviewId, User user) { // 좋아요 클릭시
@@ -106,6 +108,6 @@ public class ReviewCommandService {
 
 	private Review getReviewById(Long id) {
 		return reviewRepository.findById(id)
-			.orElseThrow(() -> new IllegalArgumentException("해당 리뷰글을 찾을 수 없습니다."));
+			.orElseThrow(() -> new NotFoundException());
 	}
 }
