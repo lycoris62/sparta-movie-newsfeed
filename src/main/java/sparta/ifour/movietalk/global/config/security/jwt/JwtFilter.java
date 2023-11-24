@@ -32,14 +32,15 @@ public class JwtFilter extends OncePerRequestFilter {
 
 	private final JwtUtil jwtUtil;
 	private final UserDetailsService userDetailsService;
-	private static final RequestMatcher ignoredPaths = new AntPathRequestMatcher("/api/users/{nickname}", HttpMethod.GET.name());
+	private static final RequestMatcher userIgnoredPath = new AntPathRequestMatcher("/api/users/{nickname}", HttpMethod.GET.name());
+	private static final RequestMatcher reviewIgnoredPath = new AntPathRequestMatcher("/api/reviews/**", HttpMethod.GET.name());
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws
 		ServletException,
 		IOException {
 
-		if (ignoredPaths.matches(request)) {
+		if (userIgnoredPath.matches(request) || reviewIgnoredPath.matches(request)) {
 			filterChain.doFilter(request, response);
 			return;
 		}
