@@ -11,8 +11,8 @@ import sparta.ifour.movietalk.domain.comment.repository.CommentRepository;
 import sparta.ifour.movietalk.domain.review.entity.Review;
 import sparta.ifour.movietalk.domain.review.repository.ReviewRepository;
 import sparta.ifour.movietalk.domain.user.entity.User;
-
-import java.util.concurrent.RejectedExecutionException;
+import sparta.ifour.movietalk.global.exception.InvalidAccessException;
+import sparta.ifour.movietalk.global.exception.NotFoundException;
 
 @Service
 @RequiredArgsConstructor
@@ -24,7 +24,7 @@ public class CommentService {
 
     public CommentCreateResponseDto createComment(CommentCreateRequestDto requestDto, User user) {
         Review review = reviewRepository.findById(requestDto.getReviewId())
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 리뷰입니다."));
+                .orElseThrow(() -> new NotFoundException());
         Comment comment = Comment.create(requestDto.getContent(), user, review);
         commentRepository.save(comment);
         return new CommentCreateResponseDto(comment);
@@ -42,10 +42,10 @@ public class CommentService {
 
     private Comment getUserComment(Long commentId, User user) {
         Comment comment = commentRepository.findById(commentId)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 댓글입니다."));
+                .orElseThrow(() -> new NotFoundException());
 
         if (!comment.getUser().getId().equals(user.getId())) {
-            throw new RejectedExecutionException("본인의 댓글만 수정이 가능합니다.");
+            throw new InvalidAccessException();
         }
         return comment;
     }
