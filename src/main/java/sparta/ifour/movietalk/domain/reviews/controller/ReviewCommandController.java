@@ -53,7 +53,7 @@ public class ReviewCommandController {
     public ResponseEntity<?> clickLike(
             @PathVariable Long reviewId,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        
+
         reviewService.clickLike(reviewId, userDetails.getUser());
 
         return ResponseEntity.ok().build();
