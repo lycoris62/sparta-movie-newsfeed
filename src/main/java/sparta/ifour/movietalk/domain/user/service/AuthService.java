@@ -11,6 +11,7 @@ import sparta.ifour.movietalk.domain.user.dto.request.UserSignupRequestDto;
 import sparta.ifour.movietalk.domain.user.entity.User;
 import sparta.ifour.movietalk.domain.user.repository.UserRepository;
 import sparta.ifour.movietalk.global.config.security.jwt.JwtUtil;
+import sparta.ifour.movietalk.global.exception.NotFoundException;
 
 /**
  * 사용자 관련 서비스
@@ -52,7 +53,7 @@ public class AuthService {
 	public String login(UserLoginRequestDto requestDto) {
 
 		User user = userRepository.findByLoginId(requestDto.getLoginId())
-			.orElseThrow(() -> new IllegalArgumentException("잘못된 로그인 아이디"));
+			.orElseThrow((NotFoundException::new));
 
 		validatePassword(requestDto.getPassword(), user.getPassword());
 
