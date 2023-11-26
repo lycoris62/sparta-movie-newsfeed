@@ -59,10 +59,6 @@ public class ReviewCommandService {
 					return tag;
 				}).toList();
 
-		HashtagList.stream()
-				.filter(tag-> !hashtagRepository.existsByName(tag.getName()))
-				.forEach(hashtagRepository::save);
-
 		HashtagList
 				.forEach(tag -> {
 					ReviewHashtag reviewHashtag = new ReviewHashtag(review, tag);
