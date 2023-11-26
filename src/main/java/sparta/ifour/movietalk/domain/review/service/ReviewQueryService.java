@@ -49,6 +49,7 @@ public class ReviewQueryService {
 		return filtering(reviews, query, hashtag)
 			.map(ReviewPreviewResponseDto::new)
 			.toList();
+
 	}
 
 	private void validateQueryAndHashtag(String query, String hashtag) {
@@ -103,7 +104,9 @@ public class ReviewQueryService {
 			return reviews.stream().filter(review -> doesReviewContain(query, review));
 		}
 
-		return reviews.stream().filter(review -> review.getReviewHashtagList().contains(hashtag));
+		return reviews.stream()
+				.filter(review -> review.getReviewHashtagList().stream()
+						.anyMatch(reviewHashtag -> reviewHashtag.getHashtag().getName().equals(hashtag)));
 	}
 
 	private boolean doesReviewContain(String query, Review review) {

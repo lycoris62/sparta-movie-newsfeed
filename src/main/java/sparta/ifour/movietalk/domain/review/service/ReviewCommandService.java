@@ -53,7 +53,10 @@ public class ReviewCommandService {
 			.forEach(tag -> {
 				ReviewHashtag reviewHashtag = new ReviewHashtag(review, tag);
 				reviewHashTagRepository.save(reviewHashtag);
+				review.addReviewHashtag(reviewHashtag);
+				tag.addReviewHashtag(reviewHashtag);
 			});
+
 
 
 
@@ -100,12 +103,12 @@ public class ReviewCommandService {
 
 	private void validateAuthorClick(User user, Review review) {
 		if (user.getLoginId().equals(review.getUser().getLoginId())) {
-			throw new AccessDeniedException("작성자는 좋아요를 누를 수 없습니다.");
+			throw new AccessDeniedException("작성자는 리뷰에 좋아요를 누를 수 없습니다.");
 		}
 	}
 
 	private Review getReviewById(Long id) {
 		return reviewRepository.findById(id)
-			.orElseThrow(() -> new NotFoundException());
+			.orElseThrow(NotFoundException::new);
 	}
 }

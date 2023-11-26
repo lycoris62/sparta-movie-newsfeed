@@ -1,5 +1,6 @@
 package sparta.ifour.movietalk.domain.comment.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -19,7 +20,7 @@ public class CommentController {
 
     @PostMapping("")
     public ResponseEntity<CommentCreateResponseDto> createComment(
-            @RequestBody CommentCreateRequestDto requestDto,
+            @Valid @RequestBody CommentCreateRequestDto requestDto,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
         CommentCreateResponseDto responseDto = commentService.createComment(requestDto, userDetails.getUser());
@@ -28,7 +29,7 @@ public class CommentController {
 
     @PatchMapping("/{commentId}")
     public ResponseEntity<?> updateComment(
-            @RequestBody CommentUpdateRequestDto requestDto,
+            @Valid @RequestBody CommentUpdateRequestDto requestDto,
             @PathVariable Long commentId,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
