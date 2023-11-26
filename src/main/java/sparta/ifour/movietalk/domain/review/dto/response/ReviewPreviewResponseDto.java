@@ -1,6 +1,7 @@
 package sparta.ifour.movietalk.domain.review.dto.response;
 
 import lombok.Getter;
+import sparta.ifour.movietalk.domain.review.entity.Hashtag;
 import sparta.ifour.movietalk.domain.review.entity.Review;
 import sparta.ifour.movietalk.domain.review.entity.ReviewHashtag;
 
@@ -19,7 +20,7 @@ public class ReviewPreviewResponseDto {
     private Float ratingScore;
     private String movieName;
     private Integer countLikes;
-    private List<ReviewHashtag> reviewHashtagList;
+    private List<String> hashtagNameList;
     private LocalDateTime createdAt;
 
 
@@ -31,7 +32,9 @@ public class ReviewPreviewResponseDto {
         this.ratingScore = review.getRatingScore();
         this.movieName = review.getMovieName();
         this.createdAt = review.getCreatedAt();
-        this.reviewHashtagList = review.getReviewHashtagList();
+        this.hashtagNameList = review.getReviewHashtagList().stream()
+                .map(reviewHashtag -> reviewHashtag.getHashtag().getName())
+                .toList();
         this.countLikes = review.getLikeList().size();
     }
 }

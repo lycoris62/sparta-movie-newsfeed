@@ -15,23 +15,27 @@ import java.util.List;
 public class ReviewDetailResponseDto {
     private Long id;
     private String title;
+    private String authorName;
     private String content;
     private Float ratingScore;
     private String movieName;
     private Integer countLikes;
-    private List<ReviewHashtag> reviewHashtagList;
+    private List<String> hashtagNameList;
     private LocalDateTime createdAt;
     private List<CommentResponseDto> commentList;
 
     public ReviewDetailResponseDto(Review review) {
         this.id = review.getId();
         this.title = review.getTitle();
+        this.authorName = review.getUser().getNickname();
         this.content = review.getContent();
         this.ratingScore = review.getRatingScore();
         this.movieName = review.getMovieName();
         this.createdAt = review.getCreatedAt();
         this.countLikes = review.getLikeList().size();
-        this.reviewHashtagList = review.getReviewHashtagList();
+        this.hashtagNameList = review.getReviewHashtagList().stream()
+                .map(reviewHashtag -> reviewHashtag.getHashtag().getName())
+                .toList();
         this.commentList = review.getCommentList().stream()
                 .map(CommentResponseDto::new)
                 .toList();
