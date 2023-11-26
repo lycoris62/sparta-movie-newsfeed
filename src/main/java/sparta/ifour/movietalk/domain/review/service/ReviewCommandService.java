@@ -40,6 +40,12 @@ public class ReviewCommandService {
 
 		Review saveReview = reviewRepository.save(review);
 
+		addHashtag(requestDto, review);
+
+		return new ReviewPreviewResponseDto(saveReview);
+	}
+
+	private void addHashtag(ReviewRequestDto requestDto, Review review) {
 		List<Hashtag> HashtagList = requestDto.getTagList().stream()
 				.map(tagName -> {
 					Hashtag tag = null;
@@ -64,11 +70,6 @@ public class ReviewCommandService {
 					review.addReviewHashtag(reviewHashtag);
 					tag.addReviewHashtag(reviewHashtag);
 				});
-
-
-
-
-		return new ReviewPreviewResponseDto(saveReview);
 	}
 
 	public void updateReview(ReviewRequestDto requestDto, Long reviewId, User user) { // 리뷰 수정
