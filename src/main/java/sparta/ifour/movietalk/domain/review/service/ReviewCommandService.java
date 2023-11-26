@@ -31,31 +31,39 @@ public class ReviewCommandService {
 
 	public ReviewPreviewResponseDto createReview(ReviewRequestDto requestDto, User user) { // 리뷰 생성
 		Review review = Review.builder()
-			.title(requestDto.getTitle())
-			.content(requestDto.getContent())
-			.ratingScore(requestDto.getRatingScore())
-			.movieName(requestDto.getMovieName())
-			.user(user)
-			.build();
+				.title(requestDto.getTitle())
+				.content(requestDto.getContent())
+				.ratingScore(requestDto.getRatingScore())
+				.movieName(requestDto.getMovieName())
+				.user(user)
+				.build();
 
 		Review saveReview = reviewRepository.save(review);
 
-		// reviewHashTagRepository.save(reviewHashtag); 이것보다 먼저 와야한다.
+		List<Hashtag> HashtagList = requestDto.getTagList().stream()
+				.map(tagName -> {
+					Hashtag tag = null;
 
-		List<Hashtag> HashtagList= requestDto.getTagList().stream()
-			.map(Hashtag::new).toList();
+					if(!hashtagRepository.existsByName(tagName)) {
+						tag = new Hashtag(tagName);
+						tag = hashtagRepository.save(tag);
+					} else {
+						tag = hashtagRepository.findByName(tagName).orElseThrow(() -> new NotFoundException());
+					}
+					return tag;
+				}).toList();
 
 		HashtagList.stream()
-			.filter(tag-> !hashtagRepository.existsByName(tag.getName()))
-			.forEach(hashtagRepository::save);
+				.filter(tag-> !hashtagRepository.existsByName(tag.getName()))
+				.forEach(hashtagRepository::save);
 
 		HashtagList
-			.forEach(tag -> {
-				ReviewHashtag reviewHashtag = new ReviewHashtag(review, tag);
-				reviewHashTagRepository.save(reviewHashtag);
-				review.addReviewHashtag(reviewHashtag);
-				tag.addReviewHashtag(reviewHashtag);
-			});
+				.forEach(tag -> {
+					ReviewHashtag reviewHashtag = new ReviewHashtag(review, tag);
+					reviewHashTagRepository.save(reviewHashtag);
+					review.addReviewHashtag(reviewHashtag);
+					tag.addReviewHashtag(reviewHashtag);
+				});
 
 
 
