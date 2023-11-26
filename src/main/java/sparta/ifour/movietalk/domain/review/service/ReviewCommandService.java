@@ -53,7 +53,10 @@ public class ReviewCommandService {
 			.forEach(tag -> {
 				ReviewHashtag reviewHashtag = new ReviewHashtag(review, tag);
 				reviewHashTagRepository.save(reviewHashtag);
+				review.addReviewHashtag(reviewHashtag);
+				tag.addReviewHashtag(reviewHashtag);
 			});
+
 
 
 
