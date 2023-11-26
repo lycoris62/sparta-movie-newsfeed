@@ -13,11 +13,6 @@ import sparta.ifour.movietalk.domain.review.repository.ReviewRepository;
 import sparta.ifour.movietalk.domain.user.entity.User;
 import sparta.ifour.movietalk.global.exception.InvalidAccessException;
 import sparta.ifour.movietalk.global.exception.NotFoundException;
-<<<<<<< HEAD
-
-import java.util.concurrent.RejectedExecutionException;
-=======
->>>>>>> 9be5837e85e8f874f53f04665d6d3371b1942f4b
 
 @Service
 @RequiredArgsConstructor
