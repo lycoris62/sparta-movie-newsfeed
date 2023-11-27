@@ -43,7 +43,7 @@ public class Review extends BaseEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "review")
+    @OneToMany(mappedBy = "review", cascade = {CascadeType.REMOVE})
     private List<ReviewHashtag> reviewHashtagList = new ArrayList<>();
 
     @OneToMany(mappedBy = "review")
