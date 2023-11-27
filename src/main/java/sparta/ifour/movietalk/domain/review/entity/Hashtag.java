@@ -36,4 +36,5 @@ public class Hashtag {
         reviewHashtag.setHashtag(this);
     }
 
+
 }
